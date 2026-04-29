@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>SilverNet – Internet Fibra Óptica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --navy:    #040D1F;
+  --navy2:   #0A1A50;
+  --cyan:    #00D4FF;
+  --cyan2:   #00A8CC;
+  --gold:    #FFB800;
+  --gold2:   #FF8C00;
+  --white:   #F0F6FF;
+  --muted:   #8899BB;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--navy);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ══════════════════════════════════
+   BACKGROUND ANIMADO – FIBRAS
+══════════════════════════════════ */
+.bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.fiber {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(2px);
+  opacity: 0;
+  animation: fiberMove linear infinite;
+}
+@keyframes fiberMove {
+  0%   { opacity: 0; transform: translateX(-100px); }
+  10%  { opacity: 1; }
+  90%  { opacity: 0.4; }
+  100% { opacity: 0; transform: translateX(110vw); }
+}
+
+/* PARTÍCULAS */
+.stars {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1px 1px at 15% 20%, rgba(0,212,255,.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 35% 60%, rgba(0,212,255,.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 15%, rgba(255,184,0,.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 80% 70%, rgba(0,212,255,.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 50% 85%, rgba(255,184,0,.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 30%, rgba(0,212,255,.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 25% 90%, rgba(255,255,255,.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 70% 45%, rgba(255,255,255,.2) 0%, transparent 100%);
+  background-size: 700px 500px;
+  animation: drift 30s linear infinite;
+}
+@keyframes drift { to { background-position: 700px 500px; } }
+
+/* ══════════════════════════════════
+   LAYOUT
+══════════════════════════════════ */
+.page { position: relative; z-index: 1; }
+
+section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
+
+/* ══════════════════════════════════
+   HERO
+══════════════════════════════════ */
+.hero {
+  text-align: center;
+  padding-top: 48px;
+  padding-bottom: 40px;
+}
+
+.logo-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+  animation: fadeDown .6s ease both;
+}
+.logo-circle {
+  width: 48px; height: 48px;
+  background: var(--navy2);
+  border: 2px solid var(--cyan);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 18px rgba(0,212,255,.35);
+}
+.logo-circle svg { width: 26px; height: 26px; }
+.logo-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 24px;
+  letter-spacing: 3px;
+  color: var(--white);
+}
+
+/* Badge indicação */
+.badge-indicacao {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: linear-gradient(135deg, rgba(255,184,0,.18), rgba(255,140,0,.08));
+  border: 1px solid rgba(255,184,0,.45);
+  border-radius: 99px;
+  padding: 7px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gold);
+  margin-bottom: 24px;
+  animation: fadeDown .7s .1s ease both;
+  box-shadow: 0 0 20px rgba(255,184,0,.1);
+}
+.badge-indicacao .dot {
+  width: 7px; height: 7px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(255,184,0,.5); }
+  50%      { box-shadow: 0 0 0 6px rgba(255,184,0,0); }
+}
+
+.hero h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(38px, 11vw, 54px);
+  line-height: 1.0;
+  letter-spacing: -0.5px;
+  margin-bottom: 16px;
+  animation: fadeDown .7s .15s ease both;
+}
+.hero h1 .cyan { color: var(--cyan); }
+.hero h1 .gold { color: var(--gold); }
+
+.hero p {
+  color: #99b4d4;
+  font-size: 16px;
+  max-width: 340px;
+  margin: 0 auto 32px;
+  animation: fadeDown .7s .2s ease both;
+  line-height: 1.7;
+}
+
+/* CTA principal */
+.btn-wpp {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: white;
+  text-decoration: none;
+  padding: 18px 32px;
+  border-radius: 16px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: .3px;
+  box-shadow: 0 8px 30px rgba(37,211,102,.35), 0 2px 8px rgba(0,0,0,.3);
+  transition: transform .15s, box-shadow .15s;
+  animation: fadeDown .7s .25s ease both;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  justify-content: center;
+  max-width: 360px;
+}
+.btn-wpp::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -60%;
+  width: 40%; height: 200%;
+  background: rgba(255,255,255,.15);
+  transform: skewX(-20deg);
+  animation: shimmer 2.5s 1s infinite;
+}
+@keyframes shimmer { to { left: 130%; } }
+.btn-wpp:active { transform: scale(.97); }
+.btn-wpp svg { width: 24px; height: 24px; flex-shrink: 0; }
+
+/* Seta pra baixo */
+.scroll-hint {
+  margin-top: 36px;
+  color: var(--muted);
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  animation: fadeDown .7s .4s ease both;
+}
+.arrow-down {
+  width: 20px; height: 20px;
+  border-right: 2px solid var(--cyan);
+  border-bottom: 2px solid var(--cyan);
+  transform: rotate(45deg);
+  animation: bounce 1.6s infinite;
+  opacity: .6;
+}
+@keyframes bounce {
+  0%,100% { transform: rotate(45deg) translateY(0); }
+  50%      { transform: rotate(45deg) translateY(5px); }
+}
+
+/* ══════════════════════════════════
+   DIVIDER
+══════════════════════════════════ */
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(0,212,255,.3), transparent);
+  margin: 0 20px;
+}
+
+/* ══════════════════════════════════
+   URGÊNCIA
+══════════════════════════════════ */
+.urgencia {
+  background: linear-gradient(135deg, rgba(255,184,0,.08) 0%, rgba(255,140,0,.04) 100%);
+  border: 1px solid rgba(255,184,0,.25);
+  border-radius: 20px;
+  padding: 24px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin: 0 auto;
+  max-width: 480px;
+}
+.urgencia-icon {
+  font-size: 32px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.urgencia h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+.urgencia p { font-size: 14px; color: #99b4d4; }
+
+/* ══════════════════════════════════
+   BENEFÍCIOS
+══════════════════════════════════ */
+.section-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--cyan);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.section-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: clamp(28px, 8vw, 38px);
+  line-height: 1.1;
+  margin-bottom: 32px;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.benefit-card {
+  background: rgba(10,26,80,.6);
+  border: 1px solid rgba(0,212,255,.12);
+  border-radius: 16px;
+  padding: 20px 16px;
+  backdrop-filter: blur(10px);
+  transition: border-color .2s, transform .2s;
+}
+.benefit-card:hover {
+  border-color: rgba(0,212,255,.35);
+  transform: translateY(-2px);
+}
+.benefit-icon { font-size: 28px; margin-bottom: 10px; }
+.benefit-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 4px;
+  color: var(--white);
+}
+.benefit-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+/* ══════════════════════════════════
+   PLANOS
+══════════════════════════════════ */
+.planos { padding-top: 20px; }
+
+.plan-card {
+  background: rgba(10,26,80,.55);
+  border: 1px solid rgba(0,212,255,.15);
+  border-radius: 20px;
+  padding: 24px 22px;
+  margin-bottom: 16px;
+  backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+  transition: border-color .2s, transform .2s;
+}
+.plan-card:hover { border-color: rgba(0,212,255,.4); transform: translateY(-2px); }
+
+.plan-card.destaque {
+  border-color: var(--cyan);
+  box-shadow: 0 0 30px rgba(0,212,255,.12), inset 0 0 60px rgba(0,212,255,.03);
+}
+.plan-card.destaque::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 120px; height: 120px;
+  background: radial-gradient(circle, rgba(0,212,255,.15), transparent 70%);
+  border-radius: 50%;
+}
+
+.plan-badge {
+  position: absolute;
+  top: 16px; right: 16px;
+  background: var(--cyan);
+  color: var(--navy);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-family: 'Barlow Condensed', sans-serif;
+}
+
+.plan-speed {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 52px;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--cyan);
+  margin-bottom: 2px;
+}
+.plan-speed span { font-size: 20px; font-weight: 600; color: var(--muted); }
+
+.plan-name {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.plan-features {
+  list-style: none;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.plan-features li {
+  font-size: 14px;
+  color: #b0c8e8;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.plan-features li::before {
+  content: '';
+  width: 18px; height: 18px;
+  background: rgba(0,212,255,.12);
+  border: 1px solid rgba(0,212,255,.4);
+  border-radius: 50%;
+  flex-shrink: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300D4FF' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+  background-size: 11px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.plan-price {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+.plan-price .from { font-size: 13px; color: var(--muted); }
+.plan-price .val {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 36px;
+  color: var(--gold);
+  line-height: 1;
+}
+.plan-price .cents { font-size: 18px; font-weight: 700; color: var(--gold); }
+.plan-price .mo { font-size: 13px; color: var(--muted); }
+.plan-note { font-size: 11px; color: var(--muted); }
+
+.btn-plano {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: white;
+  text-decoration: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 18px;
+  transition: opacity .15s, transform .15s;
+  box-shadow: 0 4px 20px rgba(37,211,102,.3);
+}
+.btn-plano:active { opacity: .85; transform: scale(.98); }
+.btn-plano svg { width: 18px; height: 18px; }
+
+/* ══════════════════════════════════
+   DEPOIMENTOS
+══════════════════════════════════ */
+.depo-card {
+  background: rgba(10,26,80,.5);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 14px;
+  backdrop-filter: blur(10px);
+}
+.depo-stars { color: var(--gold); font-size: 14px; margin-bottom: 10px; }
+.depo-text { font-size: 14px; color: #99b4d4; line-height: 1.7; margin-bottom: 14px; }
+.depo-author { display: flex; align-items: center; gap: 12px; }
+.depo-avatar {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: var(--navy2);
+  border: 2px solid rgba(0,212,255,.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: 'Barlow Condensed', sans-serif;
+  color: var(--cyan);
+}
+.depo-name { font-size: 14px; font-weight: 600; color: var(--white); }
+.depo-city { font-size: 12px; color: var(--muted); }
+
+/* ══════════════════════════════════
+   CTA FINAL
+══════════════════════════════════ */
+.cta-final {
+  text-align: center;
+  padding: 48px 20px 80px;
+}
+.cta-final h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(30px, 9vw, 44px);
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+.cta-final p { color: #99b4d4; font-size: 15px; margin-bottom: 32px; }
+
+/* ══════════════════════════════════
+   STICKY FOOTER
+══════════════════════════════════ */
+.sticky-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 12px 16px 20px;
+  background: linear-gradient(to top, rgba(4,13,31,1) 60%, transparent);
+}
+.sticky-bar a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: white;
+  text-decoration: none;
+  padding: 16px 24px;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  box-shadow: 0 8px 32px rgba(37,211,102,.4), 0 2px 8px rgba(0,0,0,.5);
+  transition: transform .15s;
+  position: relative;
+  overflow: hidden;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.sticky-bar a::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -60%;
+  width: 35%; height: 200%;
+  background: rgba(255,255,255,.12);
+  transform: skewX(-20deg);
+  animation: shimmer 2s 2s infinite;
+}
+.sticky-bar a svg { width: 22px; height: 22px; flex-shrink: 0; }
+.sticky-bar a:active { transform: scale(.98); }
+
+/* ══════════════════════════════════
+   ANIMAÇÕES DE ENTRADA
+══════════════════════════════════ */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+
+<body>
+
+<!-- FUNDO ANIMADO -->
+<div class="bg-canvas" id="bgCanvas"></div>
+<div class="stars"></div>
+
+<div class="page">
+
+  <!-- ══ HERO ══ -->
+  <section class="hero">
+    <div class="logo-wrap">
+      <div class="logo-circle">
+        <!-- Mouse icon SVG (SilverNet) -->
+        <svg viewBox="0 0 26 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="5" y="1" width="16" height="24" rx="8" stroke="#00D4FF" stroke-width="2"/>
+          <circle cx="13" cy="10" r="3" stroke="#00D4FF" stroke-width="1.5"/>
+          <line x1="13" y1="13" x2="13" y2="18" stroke="#00D4FF" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="5" y1="15" x2="21" y2="15" stroke="#00D4FF" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <span class="logo-name">SILVERNET</span>
+    </div>
+
+    <div class="badge-indicacao">
+      <span class="dot"></span>
+      🎁 Você chegou por indicação — oferta especial!
+    </div>
+
+    <h1>
+      Internet<br>
+      <span class="cyan">Fibra Óptica</span><br>
+      que <span class="gold">não cai</span>
+    </h1>
+
+    <p>Conexão ultra-rápida com fibra óptica de verdade. Instalação gratuita e sem burocracia.</p>
+
+    <a href="https://api.whatsapp.com/send?phone=558000500104&text=Ol%C3%A1%2C%20vim%20por%20indica%C3%A7%C3%A3o%20do%20Joel%20e%20quero%20informa%C3%A7%C3%B5es%20sobre%20os%20planos" class="btn-wpp">
+      <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Falar com a Vendedora agora
+    </a>
+
+    <div class="scroll-hint">
+      <span>Conheça nossos planos</span>
+      <div class="arrow-down"></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══ URGÊNCIA ══ -->
+  <section style="padding-top:36px; padding-bottom:36px;">
+    <div class="urgencia reveal">
+      <div class="urgencia-icon">⚡</div>
+      <div>
+        <h3>Oferta por Tempo Limitado</h3>
+        <p>Quem veio por indicação tem acesso a condições especiais — primeiro mês grátis e instalação sem custo. Aproveite agora!</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══ BENEFÍCIOS ══ -->
+  <section>
+    <div class="section-label reveal">Por que escolher a SilverNet?</div>
+    <h2 class="section-title reveal">Tudo que você<br><span style="color:var(--cyan)">merece ter</span></h2>
+
+    <div class="benefits-grid">
+      <div class="benefit-card reveal">
+        <div class="benefit-icon">🚀</div>
+        <div class="benefit-title">Velocidade Real</div>
+        <div class="benefit-desc">Fibra óptica 100% — velocidade que chega de verdade ao seu dispositivo</div>
+      </div>
+      <div class="benefit-card reveal">
+        <div class="benefit-icon">🔧</div>
+        <div class="benefit-title">Instalação Grátis</div>
+        <div class="benefit-desc">Técnico especializado sem custo de visita nem equipamento</div>
+      </div>
+      <div class="benefit-card reveal">
+        <div class="benefit-icon">📞</div>
+        <div class="benefit-title">Suporte 24h</div>
+        <div class="benefit-desc">Atendimento humano a qualquer hora, todos os dias</div>
+      </div>
+      <div class="benefit-card reveal">
+        <div class="benefit-icon">🔓</div>
+        <div class="benefit-title">Sem Fidelidade</div>
+        <div class="benefit-desc">Sem contrato longo. Liberdade total para você</div>
+      </div>
+      <div class="benefit-card reveal">
+        <div class="benefit-icon">📶</div>
+        <div class="benefit-title">Wi-Fi Incluso</div>
+        <div class="benefit-desc">Roteador Wi-Fi 6 de alta performance sem custo extra</div>
+      </div>
+      <div class="benefit-card reveal">
+        <div class="benefit-icon">⚡</div>
+        <div class="benefit-title">IPv6 Nativo</div>
+        <div class="benefit-desc">Tecnologia moderna para máxima compatibilidade e velocidade</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══ PLANOS ══ -->
+  <section class="planos">
+    <div class="section-label reveal">Escolha o seu</div>
+    <h2 class="section-title reveal">Planos que<br><span style="color:var(--gold)">cabem no bolso</span></h2>
+
+    <!-- Plano 200MB -->
+    <div class="plan-card reveal">
+      <div class="plan-speed">200<span>MB</span></div>
+      <div class="plan-name">Plano Essencial · Fibra Óptica</div>
+      <ul class="plan-features">
+        <li>Upload e Download simétrico</li>
+        <li>Wi-Fi incluso</li>
+        <li>Instalação gratuita</li>
+        <li>Suporte 24 horas</li>
+      </ul>
+      <div class="plan-price">
+        <span class="from">R$</span>
+        <span class="val">69</span>
+        <span class="cents">,90</span>
+        <span class="mo">/mês</span>
+      </div>
+      <div class="plan-note">* sem taxa de instalação para indicados</div>
+      <a href="https://api.whatsapp.com/send?phone=558000500104&text=Ol%C3%A1%2C%20vim%20por%20indica%C3%A7%C3%A3o%20do%20Joel%20e%20tenho%20interesse%20no%20Plano%20200MB" class="btn-plano">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Quero este plano
+      </a>
+    </div>
+
+    <!-- Plano 500MB (destaque) -->
+    <div class="plan-card destaque reveal">
+      <div class="plan-badge">MAIS POPULAR</div>
+      <div class="plan-speed">500<span>MB</span></div>
+      <div class="plan-name">Plano Plus · Fibra Óptica</div>
+      <ul class="plan-features">
+        <li>Upload e Download simétrico</li>
+        <li>Wi-Fi 6 de alta performance</li>
+        <li>Instalação gratuita prioritária</li>
+        <li>Suporte 24h com prioridade</li>
+        <li>1º mês grátis para indicados 🎁</li>
+      </ul>
+      <div class="plan-price">
+        <span class="from">R$</span>
+        <span class="val">99</span>
+        <span class="cents">,90</span>
+        <span class="mo">/mês</span>
+      </div>
+      <div class="plan-note">* 1º mês grátis exclusivo para quem veio por indicação</div>
+      <a href="https://api.whatsapp.com/send?phone=558000500104&text=Ol%C3%A1%2C%20vim%20por%20indica%C3%A7%C3%A3o%20do%20Joel%20e%20tenho%20interesse%20no%20Plano%20500MB" class="btn-plano">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Quero este plano
+      </a>
+    </div>
+
+    <!-- Plano 1GB -->
+    <div class="plan-card reveal">
+      <div class="plan-speed">1<span>GB</span></div>
+      <div class="plan-name">Plano Ultra · Fibra Óptica</div>
+      <ul class="plan-features">
+        <li>Upload e Download simétrico</li>
+        <li>Wi-Fi 6 Mesh para toda a casa</li>
+        <li>Instalação prioritária em 24h</li>
+        <li>Suporte VIP dedicado</li>
+        <li>IP fixo incluso</li>
+      </ul>
+      <div class="plan-price">
+        <span class="from">R$</span>
+        <span class="val">149</span>
+        <span class="cents">,90</span>
+        <span class="mo">/mês</span>
+      </div>
+      <div class="plan-note">* ideal para empresas, home office e streamers</div>
+      <a href="https://api.whatsapp.com/send?phone=558000500104&text=Ol%C3%A1%2C%20vim%20por%20indica%C3%A7%C3%A3o%20do%20Joel%20e%20tenho%20interesse%20no%20Plano%201GB" class="btn-plano">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Quero este plano
+      </a>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══ DEPOIMENTOS ══ -->
+  <section>
+    <div class="section-label reveal">Quem já é cliente</div>
+    <h2 class="section-title reveal">O que falam<br>da <span style="color:var(--cyan)">SilverNet</span></h2>
+
+    <div class="depo-card reveal">
+      <div class="depo-stars">★★★★★</div>
+      <p class="depo-text">"Instalaram em menos de 2 horas e nunca mais tive problema com a internet. Trabalho de home office e é tudo que eu precisava!"</p>
+      <div class="depo-author">
+        <div class="depo-avatar">CM</div>
+        <div>
+          <div class="depo-name">Carlos M.</div>
+          <div class="depo-city">Cliente há 14 meses</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="depo-card reveal">
+      <div class="depo-stars">★★★★★</div>
+      <p class="depo-text">"Vim por indicação e não me arrependi. O atendimento é rápido e a velocidade é real — testei e bate os 500MB certinho!"</p>
+      <div class="depo-author">
+        <div class="depo-avatar">AP</div>
+        <div>
+          <div class="depo-name">Ana Paula S.</div>
+          <div class="depo-city">Cliente há 8 meses</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="depo-card reveal">
+      <div class="depo-stars">★★★★★</div>
+      <p class="depo-text">"Minha família inteira assiste streaming ao mesmo tempo e a internet não trava. Melhor decisão que tomei esse ano!"</p>
+      <div class="depo-author">
+        <div class="depo-avatar">RO</div>
+        <div>
+          <div class="depo-name">Roberto O.</div>
+          <div class="depo-city">Cliente há 11 meses</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CTA FINAL ══ -->
+  <section class="cta-final">
+    <h2 class="reveal">Pronto para ter<br><span style="color:var(--cyan)">internet de verdade?</span></h2>
+    <p class="reveal">Fale agora com nossa vendedora e garanta sua oferta exclusiva de indicação antes que acabe.</p>
+    <a href="https://api.whatsapp.com/send?phone=558000500104&text=Ol%C3%A1%2C%20vim%20por%20indica%C3%A7%C3%A3o%20do%20Joel%20e%20quero%20informa%C3%A7%C3%B5es%20sobre%20os%20planos" class="btn-wpp reveal" style="max-width:360px; margin:0 auto;">
+      <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Falar com a Vendedora agora
+    </a>
+  </section>
+
+</div><!-- /page -->
+
+<!-- BOTÃO FIXO NO RODAPÉ -->
+<div class="sticky-bar">
+  <a href="https://api.whatsapp.com/send?phone=558000500104&text=Ol%C3%A1%2C%20vim%20por%20indica%C3%A7%C3%A3o%20do%20Joel%20e%20quero%20informa%C3%A7%C3%B5es%20sobre%20os%20planos">
+    <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    💬 Falar com Vendedora — WhatsApp
+  </a>
+</div>
+
+<script>
+/* ── FIBRAS ANIMADAS ── */
+const bg = document.getElementById('bgCanvas');
+const colors = ['#00D4FF','#0077B6','#FFB800','#00A8CC'];
+for (let i = 0; i < 14; i++) {
+  const f = document.createElement('div');
+  f.className = 'fiber';
+  const h  = Math.random() * 2 + 0.5;
+  const w  = Math.random() * 180 + 80;
+  const top = Math.random() * 100;
+  const dur = Math.random() * 10 + 8;
+  const del = Math.random() * 12;
+  const col = colors[Math.floor(Math.random() * colors.length)];
+  f.style.cssText = `
+    height: ${h}px;
+    width: ${w}px;
+    top: ${top}%;
+    left: -${w + 20}px;
+    background: linear-gradient(to right, transparent, ${col}, transparent);
+    animation-duration: ${dur}s;
+    animation-delay: ${del}s;
+  `;
+  bg.appendChild(f);
+}
+
+/* ── REVEAL ON SCROLL ── */
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
