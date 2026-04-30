@@ -17,12 +17,11 @@
   --gold2:   #FF8C00;
   --white:   #F0F6FF;
   --muted:   #8899BB;
+  --green:   #25D366;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 html { scroll-behavior: smooth; }
-
 body {
   background: var(--navy);
   color: var(--white);
@@ -32,23 +31,9 @@ body {
   overflow-x: hidden;
 }
 
-/* ══════════════════════════════════
-   BACKGROUND ANIMADO – FIBRAS
-══════════════════════════════════ */
-.bg-canvas {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-.fiber {
-  position: absolute;
-  border-radius: 999px;
-  filter: blur(2px);
-  opacity: 0;
-  animation: fiberMove linear infinite;
-}
+/* BACKGROUND ANIMADO – FIBRAS */
+.bg-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.fiber { position: absolute; border-radius: 999px; filter: blur(2px); opacity: 0; animation: fiberMove linear infinite; }
 @keyframes fiberMove {
   0%   { opacity: 0; transform: translateX(-100px); }
   10%  { opacity: 1; }
@@ -56,12 +41,8 @@ body {
   100% { opacity: 0; transform: translateX(110vw); }
 }
 
-/* PARTÍCULAS */
 .stars {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
   background-image:
     radial-gradient(1px 1px at 15% 20%, rgba(0,212,255,.5) 0%, transparent 100%),
     radial-gradient(1px 1px at 35% 60%, rgba(0,212,255,.3) 0%, transparent 100%),
@@ -76,29 +57,23 @@ body {
 }
 @keyframes drift { to { background-position: 700px 500px; } }
 
-/* ══════════════════════════════════
-   LAYOUT
-══════════════════════════════════ */
 .page { position: relative; z-index: 1; }
-
 section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
 
-/* ══════════════════════════════════
-   HERO
-══════════════════════════════════ */
-.hero {
-  text-align: center;
-  padding-top: 48px;
-  padding-bottom: 40px;
+/* TOPBAR */
+.topbar {
+  background: linear-gradient(135deg, var(--navy2) 0%, var(--navy) 100%);
+  border-bottom: 1px solid rgba(0,212,255,.2);
+  text-align: center; padding: 12px 16px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; letter-spacing: 1px; text-transform: uppercase;
+  position: relative; z-index: 10;
 }
+.topbar span { color: var(--gold); font-weight: 700; }
 
-.logo-wrap {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 28px;
-  animation: fadeDown .6s ease both;
-}
+/* HERO */
+.hero { text-align: center; padding-top: 48px; padding-bottom: 40px; }
+.logo-wrap { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 28px; animation: fadeDown .6s ease both; }
 .logo-circle {
   width: 48px; height: 48px;
   background: var(--navy2);
@@ -108,87 +83,44 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
   box-shadow: 0 0 18px rgba(0,212,255,.35);
 }
 .logo-circle svg { width: 26px; height: 26px; }
-.logo-name {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 800;
-  font-size: 24px;
-  letter-spacing: 3px;
-  color: var(--white);
-}
+.logo-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 24px; letter-spacing: 3px; color: var(--white); }
 
-/* Badge indicação */
 .badge-indicacao {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
+  display: inline-flex; align-items: center; gap: 7px;
   background: linear-gradient(135deg, rgba(255,184,0,.18), rgba(255,140,0,.08));
   border: 1px solid rgba(255,184,0,.45);
-  border-radius: 99px;
-  padding: 7px 18px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--gold);
+  border-radius: 99px; padding: 7px 18px;
+  font-size: 13px; font-weight: 500; color: var(--gold);
   margin-bottom: 24px;
   animation: fadeDown .7s .1s ease both;
   box-shadow: 0 0 20px rgba(255,184,0,.1);
 }
-.badge-indicacao .dot {
-  width: 7px; height: 7px;
-  background: var(--gold);
-  border-radius: 50%;
-  animation: pulse 1.5s infinite;
-}
+.badge-indicacao .dot { width: 7px; height: 7px; background: var(--gold); border-radius: 50%; animation: pulse 1.5s infinite; }
 @keyframes pulse {
   0%,100% { box-shadow: 0 0 0 0 rgba(255,184,0,.5); }
-  50%      { box-shadow: 0 0 0 6px rgba(255,184,0,0); }
+  50%     { box-shadow: 0 0 0 6px rgba(255,184,0,0); }
 }
 
-.hero h1 {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 900;
-  font-size: clamp(38px, 11vw, 54px);
-  line-height: 1.0;
-  letter-spacing: -0.5px;
-  margin-bottom: 16px;
-  animation: fadeDown .7s .15s ease both;
-}
+.hero h1 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(38px, 11vw, 54px); line-height: 1.0; letter-spacing: -0.5px; margin-bottom: 16px; animation: fadeDown .7s .15s ease both; }
 .hero h1 .cyan { color: var(--cyan); }
 .hero h1 .gold { color: var(--gold); }
+.hero p { color: #99b4d4; font-size: 16px; max-width: 340px; margin: 0 auto 32px; animation: fadeDown .7s .2s ease both; line-height: 1.7; }
 
-.hero p {
-  color: #99b4d4;
-  font-size: 16px;
-  max-width: 340px;
-  margin: 0 auto 32px;
-  animation: fadeDown .7s .2s ease both;
-  line-height: 1.7;
-}
-
-/* CTA principal */
 .btn-wpp {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
+  display: inline-flex; align-items: center; gap: 12px;
   background: linear-gradient(135deg, #25D366, #128C7E);
-  color: white;
-  text-decoration: none;
-  padding: 18px 32px;
-  border-radius: 16px;
-  font-size: 17px;
-  font-weight: 600;
-  letter-spacing: .3px;
+  color: white; text-decoration: none;
+  padding: 18px 32px; border-radius: 16px;
+  font-size: 17px; font-weight: 600; letter-spacing: .3px;
   box-shadow: 0 8px 30px rgba(37,211,102,.35), 0 2px 8px rgba(0,0,0,.3);
   transition: transform .15s, box-shadow .15s;
   animation: fadeDown .7s .25s ease both;
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  justify-content: center;
-  max-width: 360px;
+  position: relative; overflow: hidden;
+  width: 100%; justify-content: center; max-width: 360px;
+  cursor: pointer; border: none; font-family: inherit;
 }
 .btn-wpp::before {
-  content: '';
-  position: absolute;
+  content: ''; position: absolute;
   top: -50%; left: -60%;
   width: 40%; height: 200%;
   background: rgba(255,255,255,.15);
@@ -199,344 +131,261 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
 .btn-wpp:active { transform: scale(.97); }
 .btn-wpp svg { width: 24px; height: 24px; flex-shrink: 0; }
 
-/* Seta pra baixo */
-.scroll-hint {
-  margin-top: 36px;
-  color: var(--muted);
-  font-size: 13px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  animation: fadeDown .7s .4s ease both;
-}
-.arrow-down {
-  width: 20px; height: 20px;
-  border-right: 2px solid var(--cyan);
-  border-bottom: 2px solid var(--cyan);
-  transform: rotate(45deg);
-  animation: bounce 1.6s infinite;
-  opacity: .6;
-}
+.scroll-hint { margin-top: 36px; color: var(--muted); font-size: 13px; display: flex; flex-direction: column; align-items: center; gap: 6px; animation: fadeDown .7s .4s ease both; }
+.arrow-down { width: 20px; height: 20px; border-right: 2px solid var(--cyan); border-bottom: 2px solid var(--cyan); transform: rotate(45deg); animation: bounce 1.6s infinite; opacity: .6; }
 @keyframes bounce {
   0%,100% { transform: rotate(45deg) translateY(0); }
-  50%      { transform: rotate(45deg) translateY(5px); }
+  50%     { transform: rotate(45deg) translateY(5px); }
 }
 
-/* ══════════════════════════════════
-   DIVIDER
-══════════════════════════════════ */
-.divider {
-  height: 1px;
-  background: linear-gradient(to right, transparent, rgba(0,212,255,.3), transparent);
-  margin: 0 20px;
-}
+.divider { height: 1px; background: linear-gradient(to right, transparent, rgba(0,212,255,.3), transparent); margin: 0 20px; }
 
-/* ══════════════════════════════════
-   URGÊNCIA
-══════════════════════════════════ */
-.urgencia {
-  background: linear-gradient(135deg, rgba(255,184,0,.08) 0%, rgba(255,140,0,.04) 100%);
-  border: 1px solid rgba(255,184,0,.25);
-  border-radius: 20px;
-  padding: 24px 20px;
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  margin: 0 auto;
-  max-width: 480px;
-}
-.urgencia-icon {
-  font-size: 32px;
-  flex-shrink: 0;
-  line-height: 1;
-}
-.urgencia h3 {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: 20px;
-  color: var(--gold);
-  margin-bottom: 4px;
-}
-.urgencia p { font-size: 14px; color: #99b4d4; }
+/* BENEFÍCIOS */
+.section-label { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 3px; color: var(--cyan); text-transform: uppercase; margin-bottom: 10px; }
+.section-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: clamp(28px, 8vw, 38px); line-height: 1.1; margin-bottom: 32px; }
 
-/* ══════════════════════════════════
-   BENEFÍCIOS
-══════════════════════════════════ */
-.section-label {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  color: var(--cyan);
-  text-transform: uppercase;
-  margin-bottom: 10px;
-}
-.section-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 800;
-  font-size: clamp(28px, 8vw, 38px);
-  line-height: 1.1;
-  margin-bottom: 32px;
-}
-
-.benefits-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-}
+.benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .benefit-card {
   background: rgba(10,26,80,.6);
   border: 1px solid rgba(0,212,255,.12);
-  border-radius: 16px;
-  padding: 20px 16px;
+  border-radius: 16px; padding: 20px 16px;
   backdrop-filter: blur(10px);
   transition: border-color .2s, transform .2s;
 }
-.benefit-card:hover {
-  border-color: rgba(0,212,255,.35);
-  transform: translateY(-2px);
-}
+.benefit-card:hover { border-color: rgba(0,212,255,.35); transform: translateY(-2px); }
 .benefit-icon { font-size: 28px; margin-bottom: 10px; }
-.benefit-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  margin-bottom: 4px;
-  color: var(--white);
-}
+.benefit-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 16px; margin-bottom: 4px; color: var(--white); }
 .benefit-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
 
-/* ══════════════════════════════════
-   PLANOS
-══════════════════════════════════ */
+/* PLANOS */
 .planos { padding-top: 20px; }
-
 .plan-card {
   background: rgba(10,26,80,.55);
   border: 1px solid rgba(0,212,255,.15);
-  border-radius: 20px;
-  padding: 24px 22px;
-  margin-bottom: 16px;
-  backdrop-filter: blur(12px);
-  position: relative;
-  overflow: hidden;
+  border-radius: 20px; padding: 24px 22px;
+  margin-bottom: 16px; backdrop-filter: blur(12px);
+  position: relative; overflow: hidden;
   transition: border-color .2s, transform .2s;
 }
 .plan-card:hover { border-color: rgba(0,212,255,.4); transform: translateY(-2px); }
-
 .plan-card.destaque {
   border-color: var(--cyan);
   box-shadow: 0 0 30px rgba(0,212,255,.12), inset 0 0 60px rgba(0,212,255,.03);
 }
 .plan-card.destaque::before {
-  content: '';
-  position: absolute;
+  content: ''; position: absolute;
   top: -40px; right: -40px;
   width: 120px; height: 120px;
   background: radial-gradient(circle, rgba(0,212,255,.15), transparent 70%);
   border-radius: 50%;
 }
-
 .plan-badge {
-  position: absolute;
-  top: 16px; right: 16px;
-  background: var(--cyan);
-  color: var(--navy);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  padding: 4px 10px;
-  border-radius: 99px;
+  position: absolute; top: 16px; right: 16px;
+  background: var(--cyan); color: var(--navy);
+  font-size: 11px; font-weight: 700; letter-spacing: 1px;
+  padding: 4px 10px; border-radius: 99px;
   font-family: 'Barlow Condensed', sans-serif;
 }
-
-.plan-speed {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 52px;
-  font-weight: 900;
-  line-height: 1;
-  color: var(--cyan);
-  margin-bottom: 2px;
-}
+.plan-speed { font-family: 'Barlow Condensed', sans-serif; font-size: 52px; font-weight: 900; line-height: 1; color: var(--cyan); margin-bottom: 2px; }
 .plan-speed span { font-size: 20px; font-weight: 600; color: var(--muted); }
-
-.plan-name {
-  font-size: 13px;
-  color: var(--muted);
-  margin-bottom: 16px;
-}
-
-.plan-features {
-  list-style: none;
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.plan-features li {
-  font-size: 14px;
-  color: #b0c8e8;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
+.plan-name { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+.plan-features { list-style: none; margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
+.plan-features li { font-size: 14px; color: #b0c8e8; display: flex; align-items: center; gap: 9px; }
 .plan-features li::before {
-  content: '';
-  width: 18px; height: 18px;
+  content: ''; width: 18px; height: 18px;
   background: rgba(0,212,255,.12);
   border: 1px solid rgba(0,212,255,.4);
-  border-radius: 50%;
-  flex-shrink: 0;
+  border-radius: 50%; flex-shrink: 0;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300D4FF' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
-  background-size: 11px;
-  background-repeat: no-repeat;
-  background-position: center;
+  background-size: 11px; background-repeat: no-repeat; background-position: center;
 }
-
-.plan-price {
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
-  margin-bottom: 6px;
-}
+.plan-price { display: flex; align-items: baseline; gap: 4px; margin-bottom: 6px; }
 .plan-price .from { font-size: 13px; color: var(--muted); }
-.plan-price .val {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 900;
-  font-size: 36px;
-  color: var(--gold);
-  line-height: 1;
-}
+.plan-price .val { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 36px; color: var(--gold); line-height: 1; }
 .plan-price .cents { font-size: 18px; font-weight: 700; color: var(--gold); }
 .plan-price .mo { font-size: 13px; color: var(--muted); }
-.plan-note { font-size: 11px; color: var(--muted); }
 
-.btn-plano {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  padding: 14px;
-  background: linear-gradient(135deg, #25D366, #128C7E);
-  color: white;
-  text-decoration: none;
-  border-radius: 12px;
-  font-size: 15px;
-  font-weight: 600;
-  margin-top: 18px;
-  transition: opacity .15s, transform .15s;
-  box-shadow: 0 4px 20px rgba(37,211,102,.3);
-}
-.btn-plano:active { opacity: .85; transform: scale(.98); }
-.btn-plano svg { width: 18px; height: 18px; }
-
-/* ══════════════════════════════════
-   DEPOIMENTOS
-══════════════════════════════════ */
+/* DEPOIMENTOS */
 .depo-card {
   background: rgba(10,26,80,.5);
   border: 1px solid rgba(255,255,255,.07);
-  border-radius: 16px;
-  padding: 20px;
-  margin-bottom: 14px;
-  backdrop-filter: blur(10px);
+  border-radius: 16px; padding: 20px;
+  margin-bottom: 14px; backdrop-filter: blur(10px);
 }
-.depo-stars { color: var(--gold); font-size: 14px; margin-bottom: 10px; }
+.depo-stars { color: var(--gold); font-size: 14px; margin-bottom: 10px; letter-spacing: 2px; }
 .depo-text { font-size: 14px; color: #99b4d4; line-height: 1.7; margin-bottom: 14px; }
 .depo-author { display: flex; align-items: center; gap: 12px; }
 .depo-avatar {
-  width: 38px; height: 38px;
-  border-radius: 50%;
-  background: var(--navy2);
-  border: 2px solid rgba(0,212,255,.3);
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--navy2); border: 2px solid rgba(0,212,255,.3);
   display: flex; align-items: center; justify-content: center;
-  font-size: 16px;
-  font-weight: 700;
-  font-family: 'Barlow Condensed', sans-serif;
-  color: var(--cyan);
+  font-size: 16px; font-weight: 700;
+  font-family: 'Barlow Condensed', sans-serif; color: var(--cyan);
 }
 .depo-name { font-size: 14px; font-weight: 600; color: var(--white); }
 .depo-city { font-size: 12px; color: var(--muted); }
 
-/* ══════════════════════════════════
-   CTA FINAL
-══════════════════════════════════ */
-.cta-final {
-  text-align: center;
-  padding: 48px 20px 80px;
-}
-.cta-final h2 {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 900;
-  font-size: clamp(30px, 9vw, 44px);
-  line-height: 1.1;
-  margin-bottom: 14px;
-}
+/* CTA FINAL */
+.cta-final { text-align: center; padding: 48px 20px 80px; }
+.cta-final h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(30px, 9vw, 44px); line-height: 1.1; margin-bottom: 14px; }
 .cta-final p { color: #99b4d4; font-size: 15px; margin-bottom: 32px; }
 
-/* ══════════════════════════════════
-   STICKY FOOTER
-══════════════════════════════════ */
+/* FORMULÁRIO */
+.form-section { padding: 60px 20px 100px; max-width: 480px; margin: 0 auto; }
+.form-header { text-align: center; margin-bottom: 40px; }
+.form-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, rgba(255,184,0,.18), rgba(255,140,0,.08));
+  border: 1px solid rgba(255,184,0,.4);
+  border-radius: 30px; padding: 6px 18px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 16px;
+}
+.form-header h2 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(28px, 7vw, 42px); font-weight: 900; text-transform: uppercase; color: var(--white); line-height: 1; margin-bottom: 12px; }
+.form-header p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+.docs-notice {
+  background: linear-gradient(135deg, rgba(255,184,0,.08), rgba(255,140,0,.04));
+  border: 1px solid rgba(255,184,0,.25);
+  border-radius: 12px; padding: 18px 20px; margin-bottom: 24px;
+}
+.docs-notice p { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); line-height: 1.8; }
+.docs-notice p:not(:first-child) { color: #99b4d4; font-family: 'DM Sans', sans-serif; text-transform: none; letter-spacing: 0; margin-top: 8px; }
+
+.form-card {
+  background: rgba(10,26,80,.5);
+  border: 1px solid rgba(0,212,255,.15);
+  border-radius: 16px; padding: 24px 20px;
+  margin-bottom: 16px; backdrop-filter: blur(10px);
+}
+.form-card-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--cyan);
+  margin-bottom: 18px; padding-bottom: 12px;
+  border-bottom: 1px solid rgba(0,212,255,.15);
+  display: flex; align-items: center; gap: 8px;
+}
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group.full { grid-column: 1 / -1; }
+.form-group label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+.form-group input, .form-group select, .form-group textarea {
+  background: rgba(4,13,31,.8);
+  border: 1px solid rgba(0,212,255,.2);
+  border-radius: 10px; padding: 14px 16px;
+  color: var(--white); font-family: 'DM Sans', sans-serif;
+  font-size: 14px; outline: none;
+  transition: border-color .2s, box-shadow .2s; width: 100%;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(0,212,255,.1);
+}
+.form-group select option { background: var(--navy); }
+.form-group input::placeholder, .form-group textarea::placeholder { color: rgba(136,153,187,.5); }
+
+.venc-grid { display: flex; gap: 8px; flex-wrap: wrap; }
+.venc-btn {
+  padding: 12px 16px; border-radius: 10px;
+  border: 1px solid rgba(0,212,255,.2);
+  background: rgba(4,13,31,.6); color: var(--muted);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px; font-weight: 700;
+  cursor: pointer; transition: all .15s;
+  flex: 1; min-width: 60px; text-align: center;
+}
+.venc-btn.sel, .venc-btn:hover {
+  background: rgba(0,212,255,.15);
+  border-color: var(--cyan); color: var(--white);
+}
+
+.plan-select-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.plan-sel-btn {
+  padding: 14px 8px; border-radius: 10px;
+  border: 1px solid rgba(0,212,255,.2);
+  background: rgba(4,13,31,.6); color: var(--muted);
+  font-family: 'Barlow Condensed', sans-serif;
+  cursor: pointer; transition: all .15s;
+  text-align: center; line-height: 1.3;
+}
+.plan-sel-btn .speed { font-size: 18px; font-weight: 900; display: block; color: #8899bb; }
+.plan-sel-btn .price { font-size: 10px; color: #556677; display: block; margin-top: 2px; }
+.plan-sel-btn.sel, .plan-sel-btn:hover {
+  background: rgba(0,212,255,.15); border-color: var(--cyan);
+}
+.plan-sel-btn.sel .speed { color: var(--cyan); }
+.plan-sel-btn.sel .price { color: var(--gold); }
+
+.btn-submit {
+  width: 100%;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: #fff; border: none;
+  border-radius: 14px; padding: 18px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 18px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  cursor: pointer; display: flex;
+  align-items: center; justify-content: center;
+  gap: 12px; transition: all .2s; margin-top: 8px;
+  box-shadow: 0 6px 24px rgba(37,211,102,.3);
+}
+.btn-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(37,211,102,.4); }
+.btn-submit svg { width: 24px; height: 24px; fill: #fff; flex-shrink: 0; }
+.form-notice { text-align: center; font-size: 11px; color: var(--muted); margin-top: 14px; line-height: 1.6; }
+
+/* FOOTER */
+.footer { background: #030810; border-top: 1px solid rgba(0,212,255,.1); padding: 24px 20px; text-align: center; }
+.footer p { font-size: 12px; color: var(--muted); }
+.footer strong { color: var(--white); }
+
+/* STICKY BAR */
 .sticky-bar {
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: 12px 16px 20px;
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+  padding: 12px 16px 24px;
   background: linear-gradient(to top, rgba(4,13,31,1) 60%, transparent);
 }
 .sticky-bar a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   gap: 12px;
   background: linear-gradient(135deg, #25D366, #128C7E);
-  color: white;
-  text-decoration: none;
-  padding: 16px 24px;
-  border-radius: 14px;
-  font-size: 16px;
-  font-weight: 700;
+  color: white; text-decoration: none;
+  padding: 16px 24px; border-radius: 14px;
+  font-size: 15px; font-weight: 700;
   box-shadow: 0 8px 32px rgba(37,211,102,.4), 0 2px 8px rgba(0,0,0,.5);
-  transition: transform .15s;
-  position: relative;
-  overflow: hidden;
-  max-width: 480px;
-  margin: 0 auto;
+  transition: transform .15s; position: relative; overflow: hidden;
+  max-width: 480px; margin: 0 auto;
 }
 .sticky-bar a::before {
-  content: '';
-  position: absolute;
+  content: ''; position: absolute;
   top: -50%; left: -60%;
   width: 35%; height: 200%;
   background: rgba(255,255,255,.12);
   transform: skewX(-20deg);
   animation: shimmer 2s 2s infinite;
 }
-.sticky-bar a svg { width: 22px; height: 22px; flex-shrink: 0; }
+.sticky-bar a svg { width: 20px; height: 20px; flex-shrink: 0; }
 .sticky-bar a:active { transform: scale(.98); }
 
-/* ══════════════════════════════════
-   ANIMAÇÕES DE ENTRADA
-══════════════════════════════════ */
+/* ANIMAÇÕES */
 @keyframes fadeDown {
   from { opacity: 0; transform: translateY(-18px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .55s ease, transform .55s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
 
-.reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity .55s ease, transform .55s ease;
+/* RESPONSIVO */
+@media (max-width: 600px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .form-group.full { grid-column: 1; }
+  .benefits-grid { grid-template-columns: 1fr; }
+  .plan-select-grid { grid-template-columns: repeat(2, 1fr); }
 }
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
+@media (max-width: 420px) {
+  section { padding-left: 16px; padding-right: 16px; }
+  .plan-select-grid { grid-template-columns: 1fr 1fr; }
 }
 </style>
 </head>
@@ -549,11 +398,15 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
 
 <div class="page">
 
-  <!-- ══ HERO ══ -->
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <span>🎁</span> Você chegou por indicação — <span>oferta especial!</span>
+  </div>
+
+  <!-- HERO -->
   <section class="hero">
     <div class="logo-wrap">
       <div class="logo-circle">
-        <!-- Mouse icon SVG (SilverNet) -->
         <svg viewBox="0 0 26 34" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect x="5" y="1" width="16" height="24" rx="8" stroke="#00D4FF" stroke-width="2"/>
           <circle cx="13" cy="10" r="3" stroke="#00D4FF" stroke-width="1.5"/>
@@ -577,9 +430,9 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
 
     <p>Conexão ultra-rápida com fibra óptica de verdade. Instalação gratuita e sem burocracia.</p>
 
-    <a href="https://api.whatsapp.com/send?phone=558000500104&text=Ol%C3%A1%2C%20vim%20por%20indica%C3%A7%C3%A3o%20do%20Joel%20e%20quero%20informa%C3%A7%C3%B5es%20sobre%20os%20planos" class="btn-wpp">
+    <a href="https://api.whatsapp.com/send?phone=5511962182268&text=Ol%C3%A1%2C%20vim%20por%20indica%C3%A7%C3%A3o%20e%20quero%20informa%C3%A7%C3%B5es%20sobre%20os%20planos" class="btn-wpp" target="_blank">
       <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Falar com a Vendedora agora
+      Falar com a Vendedora
     </a>
 
     <div class="scroll-hint">
@@ -589,21 +442,9 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
   </section>
 
   <div class="divider"></div>
-
-  <!-- ══ URGÊNCIA ══ -->
-  <section style="padding-top:36px; padding-bottom:36px;">
-    <div class="urgencia reveal">
-      <div class="urgencia-icon">⚡</div>
-      <div>
-        <h3>Oferta por Tempo Limitado</h3>
-        <p>Quem veio por indicação tem acesso a condições especiais — primeiro mês grátis e instalação sem custo. Aproveite agora!</p>
-      </div>
-    </div>
-  </section>
-
   <div class="divider"></div>
 
-  <!-- ══ BENEFÍCIOS ══ -->
+  <!-- BENEFÍCIOS -->
   <section>
     <div class="section-label reveal">Por que escolher a SilverNet?</div>
     <h2 class="section-title reveal">Tudo que você<br><span style="color:var(--cyan)">merece ter</span></h2>
@@ -644,12 +485,11 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
 
   <div class="divider"></div>
 
-  <!-- ══ PLANOS ══ -->
+  <!-- PLANOS -->
   <section class="planos">
     <div class="section-label reveal">Escolha o seu</div>
     <h2 class="section-title reveal">Planos que<br><span style="color:var(--gold)">cabem no bolso</span></h2>
 
-    <!-- SVG WhatsApp reutilizável via símbolo -->
     <!-- Plano 300MB -->
     <div class="plan-card reveal">
       <div class="plan-speed">300<span>MB</span></div>
@@ -666,11 +506,6 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
         <span class="cents">,90</span>
         <span class="mo">/mês</span>
       </div>
-      <div class="plan-note">🎁 Sem taxa de instalação para indicados</div>
-      <a href="https://api.whatsapp.com/send?phone=558000500104&text=Ol%C3%A1%2C%20vim%20por%20indica%C3%A7%C3%A3o%20do%20Joel%20e%20tenho%20interesse%20no%20Plano%20300MB" class="btn-plano">
-        <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Quero este plano
-      </a>
     </div>
 
     <!-- Plano 500MB (destaque) -->
@@ -683,7 +518,7 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
         <li>Roteador Wi-Fi incluso</li>
         <li>Instalação gratuita</li>
         <li>Suporte 24 horas</li>
-        <li>Disney+ ou Globoplay incluso 🎬</li>
+        <li>Disney+ ou Globoplay 🎬</li>
       </ul>
       <div class="plan-price">
         <span class="from">R$</span>
@@ -691,11 +526,6 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
         <span class="cents">,90</span>
         <span class="mo">/mês</span>
       </div>
-      <div class="plan-note">🎁 Sem taxa de instalação para indicados</div>
-      <a href="https://api.whatsapp.com/send?phone=558000500104&text=Ol%C3%A1%2C%20vim%20por%20indica%C3%A7%C3%A3o%20do%20Joel%20e%20tenho%20interesse%20no%20Plano%20500MB" class="btn-plano">
-        <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Quero este plano
-      </a>
     </div>
 
     <!-- Plano 700MB -->
@@ -707,7 +537,7 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
         <li>Roteador Wi-Fi incluso</li>
         <li>Instalação gratuita</li>
         <li>Suporte 24 horas</li>
-        <li>Disney+ ou Max incluso 🎬</li>
+        <li>Disney+ ou Max 🎬</li>
       </ul>
       <div class="plan-price">
         <span class="from">R$</span>
@@ -715,11 +545,6 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
         <span class="cents">,90</span>
         <span class="mo">/mês</span>
       </div>
-      <div class="plan-note">🎁 Sem taxa de instalação para indicados</div>
-      <a href="https://api.whatsapp.com/send?phone=558000500104&text=Ol%C3%A1%2C%20vim%20por%20indica%C3%A7%C3%A3o%20do%20Joel%20e%20tenho%20interesse%20no%20Plano%20700MB" class="btn-plano">
-        <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Quero este plano
-      </a>
     </div>
 
     <!-- Plano 800MB -->
@@ -731,7 +556,7 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
         <li>Roteador Wi-Fi incluso</li>
         <li>Instalação gratuita</li>
         <li>Suporte 24 horas</li>
-        <li>Disney+ ou Max incluso 🎬</li>
+        <li>Disney+ ou Max 🎬</li>
       </ul>
       <div class="plan-price">
         <span class="from">R$</span>
@@ -739,11 +564,6 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
         <span class="cents">,90</span>
         <span class="mo">/mês</span>
       </div>
-      <div class="plan-note">🎁 Sem taxa de instalação para indicados</div>
-      <a href="https://api.whatsapp.com/send?phone=558000500104&text=Ol%C3%A1%2C%20vim%20por%20indica%C3%A7%C3%A3o%20do%20Joel%20e%20tenho%20interesse%20no%20Plano%20800MB" class="btn-plano">
-        <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Quero este plano
-      </a>
     </div>
 
     <!-- Plano 1000MB -->
@@ -763,17 +583,12 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
         <span class="cents">,90</span>
         <span class="mo">/mês</span>
       </div>
-      <div class="plan-note">🎁 Sem taxa de instalação para indicados</div>
-      <a href="https://api.whatsapp.com/send?phone=558000500104&text=Ol%C3%A1%2C%20vim%20por%20indica%C3%A7%C3%A3o%20do%20Joel%20e%20tenho%20interesse%20no%20Plano%201000MB" class="btn-plano">
-        <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Quero este plano
-      </a>
     </div>
   </section>
 
   <div class="divider"></div>
 
-  <!-- ══ DEPOIMENTOS ══ -->
+  <!-- DEPOIMENTOS -->
   <section>
     <div class="section-label reveal">Quem já é cliente</div>
     <h2 class="section-title reveal">O que falam<br>da <span style="color:var(--cyan)">SilverNet</span></h2>
@@ -815,28 +630,167 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
     </div>
   </section>
 
-  <!-- ══ CTA FINAL ══ -->
+  <!-- CTA FINAL -->
   <section class="cta-final">
     <h2 class="reveal">Pronto para ter<br><span style="color:var(--cyan)">internet de verdade?</span></h2>
     <p class="reveal">Fale agora com nossa vendedora e garanta sua oferta exclusiva de indicação antes que acabe.</p>
-    <a href="https://api.whatsapp.com/send?phone=558000500104&text=Ol%C3%A1%2C%20vim%20por%20indica%C3%A7%C3%A3o%20do%20Joel%20e%20quero%20informa%C3%A7%C3%B5es%20sobre%20os%20planos" class="btn-wpp reveal" style="max-width:360px; margin:0 auto;">
+    <a href="https://api.whatsapp.com/send?phone=5511962182268&text=Ol%C3%A1%2C%20vim%20por%20indica%C3%A7%C3%A3o%20e%20quero%20informa%C3%A7%C3%B5es%20sobre%20os%20planos" class="btn-wpp reveal" target="_blank" style="max-width:360px; margin:0 auto;">
       <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Falar com a Vendedora agora
     </a>
   </section>
 
+  <div class="divider"></div>
+
+  <!-- FORMULÁRIO -->
+  <section class="form-section" id="cadastro">
+    <div class="form-header">
+      <div class="form-badge">📋 Cadastro do Cliente</div>
+      <h2>Preencha seus<br><span style="color:var(--cyan)">dados</span></h2>
+      <p>Após preencher, clique em enviar e todas as informações serão enviadas<br>diretamente para nosso WhatsApp</p>
+    </div>
+
+    <div class="docs-notice reveal">
+      <p>Envie junto ao formulário os seguintes documentos:</p>
+      <p>
+        📸 1 selfie do contratante junto ao seu documento<br>
+        🪪 1 foto do documento (frente e verso)<br>
+        🏠 1 foto de comprovante de endereço no nome do contratante
+      </p>
+    </div>
+
+    <!-- DADOS PESSOAIS -->
+    <div class="form-card reveal">
+      <div class="form-card-title">👤 Dados Pessoais</div>
+      <div class="form-grid">
+        <div class="form-group full">
+          <label>Nome Completo do Titular</label>
+          <input type="text" id="f-nome" placeholder="Digite o nome completo">
+        </div>
+        <div class="form-group">
+          <label>CPF</label>
+          <input type="text" id="f-cpf" placeholder="000.000.000-00" maxlength="14">
+        </div>
+        <div class="form-group">
+          <label>RG</label>
+          <input type="text" id="f-rg" placeholder="00.000.000-0">
+        </div>
+        <div class="form-group">
+          <label>Data de Nascimento</label>
+          <input type="date" id="f-nasc">
+        </div>
+        <div class="form-group">
+          <label>E-mail</label>
+          <input type="email" id="f-email" placeholder="email@exemplo.com">
+        </div>
+      </div>
+    </div>
+
+    <!-- ENDEREÇO -->
+    <div class="form-card reveal">
+      <div class="form-card-title">🏠 Endereço</div>
+      <div class="form-grid">
+        <div class="form-group full">
+          <label>Endereço Completo</label>
+          <input type="text" id="f-end" placeholder="Rua, número, bairro, cidade">
+        </div>
+        <div class="form-group">
+          <label>Ponto de Referência</label>
+          <input type="text" id="f-ref" placeholder="Ex: próximo ao mercado...">
+        </div>
+        <div class="form-group">
+          <label>CEP</label>
+          <input type="text" id="f-cep" placeholder="00000-000" maxlength="9">
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTATO -->
+    <div class="form-card reveal">
+      <div class="form-card-title">📞 Contato</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Telefone Principal</label>
+          <input type="tel" id="f-tel1" placeholder="(00) 00000-0000">
+        </div>
+        <div class="form-group">
+          <label>Telefone Alternativo</label>
+          <input type="tel" id="f-tel2" placeholder="(00) 00000-0000">
+        </div>
+      </div>
+    </div>
+
+    <!-- PLANO -->
+    <div class="form-card reveal">
+      <div class="form-card-title">⚡ Plano Escolhido</div>
+      <div class="plan-select-grid" id="planSelect">
+        <button class="plan-sel-btn" onclick="selPlano(this,'300MB - R$ 79,90/mês')"><span class="speed">300MB</span><span class="price">R$ 79,90</span></button>
+        <button class="plan-sel-btn" onclick="selPlano(this,'500MB - R$ 99,90/mês')"><span class="speed">500MB</span><span class="price">R$ 99,90</span></button>
+        <button class="plan-sel-btn" onclick="selPlano(this,'700MB - R$ 109,90/mês')"><span class="speed">700MB</span><span class="price">R$ 109,90</span></button>
+        <button class="plan-sel-btn" onclick="selPlano(this,'800MB - R$ 119,90/mês')"><span class="speed">800MB</span><span class="price">R$ 119,90</span></button>
+        <button class="plan-sel-btn" onclick="selPlano(this,'1000MB - R$ 149,90/mês')"><span class="speed">1000MB</span><span class="price">R$ 149,90</span></button>
+      </div>
+      <input type="hidden" id="f-plano" value="">
+    </div>
+
+    <!-- VENCIMENTO -->
+    <div class="form-card reveal">
+      <div class="form-card-title">📅 Data de Vencimento</div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:14px">Temos as seguintes opções de vencimento:</p>
+      <div class="venc-grid" id="vencSelect">
+        <button class="venc-btn" onclick="selVenc(this,'01')">Dia 01</button>
+        <button class="venc-btn" onclick="selVenc(this,'05')">Dia 05</button>
+        <button class="venc-btn" onclick="selVenc(this,'10')">Dia 10</button>
+        <button class="venc-btn" onclick="selVenc(this,'15')">Dia 15</button>
+        <button class="venc-btn" onclick="selVenc(this,'20')">Dia 20</button>
+      </div>
+      <input type="hidden" id="f-venc" value="">
+    </div>
+
+    <!-- COMO CONHECEU -->
+    <div class="form-card reveal">
+      <div class="form-card-title">💬 Mais Informações</div>
+      <div class="form-group full">
+        <label>Como Conheceu a SilverNet?</label>
+        <select id="f-origem">
+          <option value="">Selecione...</option>
+          <option>Indicação de amigo/familiar</option>
+          <option>Instagram / Redes Sociais</option>
+          <option>Google</option>
+          <option>Panfleto / Material impresso</option>
+          <option>Abordagem na rua</option>
+          <option>Outro</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- BOTÃO ENVIAR -->
+    <button class="btn-submit reveal" onclick="enviarWhatsApp()">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Enviar Dados pelo WhatsApp
+    </button>
+    <p class="form-notice">Ao clicar, você será direcionado ao WhatsApp com todas as informações já preenchidas.<br>Lembre-se de anexar os documentos solicitados na conversa.</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p><strong>SilverNet Tecnologia</strong> · Internet Fibra Óptica · Todos os direitos reservados</p>
+  </footer>
+
 </div><!-- /page -->
 
 <!-- BOTÃO FIXO NO RODAPÉ -->
 <div class="sticky-bar">
-  <a href="https://api.whatsapp.com/send?phone=558000500104&text=Ol%C3%A1%2C%20vim%20por%20indica%C3%A7%C3%A3o%20do%20Joel%20e%20quero%20informa%C3%A7%C3%B5es%20sobre%20os%20planos">
+  <a href="https://api.whatsapp.com/send?phone=5511962182268&text=Ol%C3%A1%2C%20vim%20por%20indica%C3%A7%C3%A3o%20e%20quero%20informa%C3%A7%C3%B5es%20sobre%20os%20planos" target="_blank">
     <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     💬 Falar com Vendedora — WhatsApp
   </a>
 </div>
 
 <script>
-/* ── FIBRAS ANIMADAS ── */
+const TELEFONE = '5511962182268';
+
+/* FIBRAS ANIMADAS */
 const bg = document.getElementById('bgCanvas');
 const colors = ['#00D4FF','#0077B6','#FFB800','#00A8CC'];
 for (let i = 0; i < 14; i++) {
@@ -860,7 +814,7 @@ for (let i = 0; i < 14; i++) {
   bg.appendChild(f);
 }
 
-/* ── REVEAL ON SCROLL ── */
+/* REVEAL ON SCROLL */
 const reveals = document.querySelectorAll('.reveal');
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => {
@@ -871,6 +825,103 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.12 });
 reveals.forEach(el => observer.observe(el));
+
+/* MÁSCARA CPF */
+document.getElementById('f-cpf').addEventListener('input', function() {
+  let v = this.value.replace(/\D/g,'').substring(0,11);
+  v = v.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1-$2');
+  this.value = v;
+});
+
+/* MÁSCARA CEP */
+document.getElementById('f-cep').addEventListener('input', function() {
+  let v = this.value.replace(/\D/g,'').substring(0,8);
+  v = v.replace(/(\d{5})(\d)/,'$1-$2');
+  this.value = v;
+});
+
+/* SELECIONAR PLANO */
+function selPlano(btn, val) {
+  document.querySelectorAll('.plan-sel-btn').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  document.getElementById('f-plano').value = val;
+}
+
+/* SELECIONAR VENCIMENTO */
+function selVenc(btn, val) {
+  document.querySelectorAll('.venc-btn').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  document.getElementById('f-venc').value = val;
+}
+
+/* ENVIAR WHATSAPP */
+function enviarWhatsApp() {
+  const nome   = document.getElementById('f-nome').value.trim();
+  const cpf    = document.getElementById('f-cpf').value.trim();
+  const rg     = document.getElementById('f-rg').value.trim();
+  const nasc   = document.getElementById('f-nasc').value;
+  const email  = document.getElementById('f-email').value.trim();
+  const end    = document.getElementById('f-end').value.trim();
+  const ref    = document.getElementById('f-ref').value.trim();
+  const cep    = document.getElementById('f-cep').value.trim();
+  const tel1   = document.getElementById('f-tel1').value.trim();
+  const tel2   = document.getElementById('f-tel2').value.trim();
+  const plano  = document.getElementById('f-plano').value;
+  const venc   = document.getElementById('f-venc').value;
+  const origem = document.getElementById('f-origem').value;
+
+  if (!nome) { alert('Por favor, preencha o Nome Completo.'); return; }
+  if (!cpf)  { alert('Por favor, preencha o CPF.'); return; }
+  if (!end)  { alert('Por favor, preencha o Endereço.'); return; }
+  if (!tel1) { alert('Por favor, preencha pelo menos um telefone.'); return; }
+  if (!plano){ alert('Por favor, selecione o Plano desejado.'); return; }
+  if (!venc) { alert('Por favor, selecione a Data de Vencimento.'); return; }
+
+  let nascFmt = nasc;
+  if (nasc) {
+    const [y,m,d] = nasc.split('-');
+    nascFmt = `${d}/${m}/${y}`;
+  }
+
+  const msg = `
+📋 *CADASTRO DE NOVO CLIENTE — SILVERNET*
+━━━━━━━━━━━━━━━━━━━━━━━
+
+👤 *DADOS PESSOAIS*
+• Nome: ${nome}
+• CPF: ${cpf}
+• RG: ${rg || 'Não informado'}
+• Nascimento: ${nascFmt || 'Não informado'}
+• E-mail: ${email || 'Não informado'}
+
+🏠 *ENDEREÇO*
+• Endereço: ${end}
+• Referência: ${ref || 'Não informado'}
+• CEP: ${cep || 'Não informado'}
+
+📞 *CONTATO*
+• Tel 1: ${tel1}
+• Tel 2: ${tel2 || 'Não informado'}
+
+⚡ *PLANO ESCOLHIDO*
+• ${plano}
+
+📅 *VENCIMENTO*
+• Dia ${venc}
+
+💬 *COMO CONHECEU*
+• ${origem || 'Não informado'}
+
+━━━━━━━━━━━━━━━━━━━━━━━
+📎 *DOCUMENTOS — enviar nesta conversa:*
+• 1 selfie com documento
+• Documento frente e verso
+• Comprovante de endereço
+`.trim();
+
+  const url = `https://api.whatsapp.com/send?phone=${TELEFONE}&text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+}
 </script>
 </body>
 </html>
