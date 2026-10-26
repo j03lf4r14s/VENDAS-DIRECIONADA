@@ -18,6 +18,7 @@
   --white:   #F0F6FF;
   --muted:   #8899BB;
   --green:   #25D366;
+  --magenta: #FF007F;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -104,7 +105,17 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
 .hero h1 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(38px, 11vw, 54px); line-height: 1.0; letter-spacing: -0.5px; margin-bottom: 16px; animation: fadeDown .7s .15s ease both; }
 .hero h1 .cyan { color: var(--cyan); }
 .hero h1 .gold { color: var(--gold); }
-.hero p { color: #99b4d4; font-size: 16px; max-width: 340px; margin: 0 auto 32px; animation: fadeDown .7s .2s ease both; line-height: 1.7; }
+.hero p { color: #99b4d4; font-size: 16px; max-width: 340px; margin: 0 auto 20px; animation: fadeDown .7s .2s ease both; line-height: 1.7; }
+
+/* AVALIAÇÕES GOOGLE */
+.google-reviews {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; color: var(--muted); margin-bottom: 32px;
+  animation: fadeDown .7s .25s ease both; text-decoration: none;
+  transition: color 0.2s;
+}
+.google-reviews:hover { color: var(--cyan); }
+.google-reviews span { color: var(--gold); font-weight: bold; }
 
 .btn-wpp {
   display: inline-flex; align-items: center; gap: 12px;
@@ -114,7 +125,7 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
   font-size: 17px; font-weight: 600; letter-spacing: .3px;
   box-shadow: 0 8px 30px rgba(37,211,102,.35), 0 2px 8px rgba(0,0,0,.3);
   transition: transform .15s, box-shadow .15s;
-  animation: fadeDown .7s .25s ease both;
+  animation: fadeDown .7s .3s ease both;
   position: relative; overflow: hidden;
   width: 100%; justify-content: center; max-width: 360px;
   cursor: pointer; border: none; font-family: inherit;
@@ -151,14 +162,70 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
   border-radius: 16px; padding: 20px 16px;
   backdrop-filter: blur(10px);
   transition: border-color .2s, transform .2s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
-.benefit-card:hover { border-color: rgba(0,212,255,.35); transform: translateY(-2px); }
+.benefit-card:hover { border-color: rgba(0,212,255,.4); transform: translateY(-3px); background: rgba(10,26,80,.8); }
+.benefit-card::after {
+  content: '+';
+  position: absolute; top: 15px; right: 15px;
+  font-size: 18px; font-weight: bold; color: var(--cyan);
+  opacity: 0.3; transition: opacity 0.2s, transform 0.2s;
+}
+.benefit-card:hover::after { opacity: 1; transform: scale(1.2); }
 .benefit-icon { font-size: 28px; margin-bottom: 10px; }
 .benefit-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 16px; margin-bottom: 4px; color: var(--white); }
 .benefit-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
 
+/* MODAL DE BENEFÍCIOS (NUVEM TRANSPARENTE) */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(4, 13, 31, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+  padding: 20px;
+}
+.modal-overlay.active { opacity: 1; pointer-events: auto; }
+.modal-cloud {
+  background: rgba(10, 26, 80, 0.85);
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  border-radius: 24px; padding: 32px 24px;
+  width: 100%; max-width: 360px; text-align: center;
+  transform: translateY(30px) scale(0.95);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6), inset 0 0 30px rgba(0,212,255,0.15);
+  position: relative;
+}
+.modal-overlay.active .modal-cloud { transform: translateY(0) scale(1); }
+.modal-close {
+  position: absolute; top: 16px; right: 16px;
+  background: rgba(255,255,255,0.1); border: none;
+  color: var(--white); width: 32px; height: 32px;
+  border-radius: 50%; font-size: 20px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.modal-close:hover { background: rgba(255,255,255,0.25); }
+.modal-icon { font-size: 52px; margin-bottom: 16px; line-height: 1; }
+.modal-title { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 800; color: var(--cyan); margin-bottom: 12px; }
+.modal-desc { font-size: 15px; color: #b0c8e8; line-height: 1.6; }
+
 /* PLANOS */
 .planos { padding-top: 20px; }
+.planos-notice {
+  background: rgba(255, 184, 0, 0.1);
+  border: 1px solid rgba(255, 184, 0, 0.3);
+  padding: 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  color: #d0e0f0;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+.planos-notice strong { color: var(--gold); }
 .plan-card {
   background: rgba(10,26,80,.55);
   border: 1px solid rgba(0,212,255,.15);
@@ -169,41 +236,66 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
 }
 .plan-card:hover { border-color: rgba(0,212,255,.4); transform: translateY(-2px); }
 .plan-card.destaque {
-  border-color: var(--cyan);
-  box-shadow: 0 0 30px rgba(0,212,255,.12), inset 0 0 60px rgba(0,212,255,.03);
+  border-color: var(--magenta);
+  box-shadow: 0 0 30px rgba(255,0,127,.15), inset 0 0 60px rgba(255,0,127,.03);
 }
 .plan-card.destaque::before {
   content: ''; position: absolute;
   top: -40px; right: -40px;
   width: 120px; height: 120px;
-  background: radial-gradient(circle, rgba(0,212,255,.15), transparent 70%);
+  background: radial-gradient(circle, rgba(255,0,127,.15), transparent 70%);
   border-radius: 50%;
 }
 .plan-badge {
   position: absolute; top: 16px; right: 16px;
-  background: var(--cyan); color: var(--navy);
+  background: var(--magenta); color: var(--white);
   font-size: 11px; font-weight: 700; letter-spacing: 1px;
   padding: 4px 10px; border-radius: 99px;
   font-family: 'Barlow Condensed', sans-serif;
 }
 .plan-speed { font-family: 'Barlow Condensed', sans-serif; font-size: 52px; font-weight: 900; line-height: 1; color: var(--cyan); margin-bottom: 2px; }
 .plan-speed span { font-size: 20px; font-weight: 600; color: var(--muted); }
-.plan-name { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+.plan-name { font-size: 13px; color: var(--muted); margin-bottom: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
 .plan-features { list-style: none; margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
-.plan-features li { font-size: 14px; color: #b0c8e8; display: flex; align-items: center; gap: 9px; }
+.plan-features li { font-size: 13px; color: #b0c8e8; display: flex; align-items: flex-start; gap: 9px; }
 .plan-features li::before {
-  content: ''; width: 18px; height: 18px;
+  content: ''; width: 16px; height: 16px; margin-top: 2px;
   background: rgba(0,212,255,.12);
   border: 1px solid rgba(0,212,255,.4);
   border-radius: 50%; flex-shrink: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300D4FF' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
-  background-size: 11px; background-repeat: no-repeat; background-position: center;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300D4FF' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+  background-size: 10px; background-repeat: no-repeat; background-position: center;
 }
 .plan-price { display: flex; align-items: baseline; gap: 4px; margin-bottom: 6px; }
 .plan-price .from { font-size: 13px; color: var(--muted); }
 .plan-price .val { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 36px; color: var(--gold); line-height: 1; }
 .plan-price .cents { font-size: 18px; font-weight: 700; color: var(--gold); }
 .plan-price .mo { font-size: 13px; color: var(--muted); }
+
+/* PRÓXIMOS PASSOS E GUIA DO CLIENTE */
+.steps-grid { display: flex; flex-direction: column; gap: 16px; }
+.step-card {
+  display: flex; gap: 16px;
+  background: rgba(10,26,80,.4);
+  border: 1px solid rgba(255,255,255,.05);
+  border-radius: 16px; padding: 20px;
+}
+.step-num {
+  width: 32px; height: 32px; flex-shrink: 0;
+  background: rgba(0,212,255,.15); color: var(--cyan);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 18px;
+}
+.step-content h4 { font-size: 15px; color: var(--white); margin-bottom: 4px; }
+.step-content p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.step-content .app-btn {
+  display: inline-block; margin-top: 10px; margin-right: 8px;
+  background: var(--navy2); border: 1px solid var(--cyan);
+  color: var(--white); padding: 8px 12px; border-radius: 6px;
+  font-size: 11px; text-decoration: none; font-weight: bold;
+  transition: background 0.2s;
+}
+.step-content .app-btn:hover { background: rgba(0,212,255,.2); }
 
 /* DEPOIMENTOS */
 .depo-card {
@@ -301,7 +393,7 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
   border-color: var(--cyan); color: var(--white);
 }
 
-.plan-select-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.plan-select-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 .plan-sel-btn {
   padding: 14px 8px; border-radius: 10px;
   border: 1px solid rgba(0,212,255,.2);
@@ -310,13 +402,39 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
   cursor: pointer; transition: all .15s;
   text-align: center; line-height: 1.3;
 }
-.plan-sel-btn .speed { font-size: 18px; font-weight: 900; display: block; color: #8899bb; }
+.plan-sel-btn .speed { font-size: 16px; font-weight: 900; display: block; color: #8899bb; }
 .plan-sel-btn .price { font-size: 10px; color: #556677; display: block; margin-top: 2px; }
 .plan-sel-btn.sel, .plan-sel-btn:hover {
   background: rgba(0,212,255,.15); border-color: var(--cyan);
 }
 .plan-sel-btn.sel .speed { color: var(--cyan); }
 .plan-sel-btn.sel .price { color: var(--gold); }
+
+/* CHECKBOX DE ACEITE */
+.accept-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(4,13,31,.6);
+  border: 1px solid rgba(255,184,0,.2);
+  padding: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.accept-box input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--cyan);
+  margin-top: 2px;
+  cursor: pointer;
+}
+.accept-box span {
+  font-size: 12px;
+  color: #99b4d4;
+  line-height: 1.5;
+  cursor: pointer;
+}
 
 .btn-submit {
   width: 100%;
@@ -328,7 +446,7 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
   letter-spacing: 1px; text-transform: uppercase;
   cursor: pointer; display: flex;
   align-items: center; justify-content: center;
-  gap: 12px; transition: all .2s; margin-top: 8px;
+  gap: 12px; transition: all .2s; margin-top: 16px;
   box-shadow: 0 6px 24px rgba(37,211,102,.3);
 }
 .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(37,211,102,.4); }
@@ -381,11 +499,6 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
   .form-grid { grid-template-columns: 1fr; }
   .form-group.full { grid-column: 1; }
   .benefits-grid { grid-template-columns: 1fr; }
-  .plan-select-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 420px) {
-  section { padding-left: 16px; padding-right: 16px; }
-  .plan-select-grid { grid-template-columns: 1fr 1fr; }
 }
 </style>
 </head>
@@ -395,6 +508,16 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
 <!-- FUNDO ANIMADO -->
 <div class="bg-canvas" id="bgCanvas"></div>
 <div class="stars"></div>
+
+<!-- MODAL DE BENEFÍCIOS (NUVEM) -->
+<div id="benefitModal" class="modal-overlay" onclick="closeBenefitModal(event)">
+  <div class="modal-cloud" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeBenefitModal()">&times;</button>
+    <div class="modal-icon" id="modal-icon">🚀</div>
+    <h3 class="modal-title" id="modal-title">Título</h3>
+    <p class="modal-desc" id="modal-desc">Descrição detalhada do benefício.</p>
+  </div>
+</div>
 
 <div class="page">
 
@@ -428,11 +551,15 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
       que <span class="gold">não cai</span>
     </h1>
 
-    <p>Conexão ultra-rápida com fibra óptica de verdade. Instalação gratuita e sem burocracia.</p>
+    <p>Há mais de 10 anos oferecendo soluções em conectividade com atendimento humanizado. Conexão ultra-rápida de verdade.</p>
 
-    <a href="https://api.whatsapp.com/send?phone=5511962182268&text=Ol%C3%A1%2C%20vim%20por%20indica%C3%A7%C3%A3o%20e%20quero%20informa%C3%A7%C3%B5es%20sobre%20os%20planos" class="btn-wpp" target="_blank">
+    <a href="https://g.page/r/SEU_LINK_AQUI/review" target="_blank" class="google-reviews">
+      ⭐⭐⭐⭐⭐ <span>Veja nossas avaliações no Google</span>
+    </a>
+
+    <a href="https://api.whatsapp.com/send?phone=5511946995101&text=Ol%C3%A1%2C%20vim%20por%20indica%C3%A7%C3%A3o%20e%20quero%20verificar%20a%20disponibilidade%20no%20meu%20endere%C3%A7o" class="btn-wpp" target="_blank">
       <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Falar com a Vendedora
+      Consultar Viabilidade
     </a>
 
     <div class="scroll-hint">
@@ -442,7 +569,6 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
   </section>
 
   <div class="divider"></div>
-  <div class="divider"></div>
 
   <!-- BENEFÍCIOS -->
   <section>
@@ -450,35 +576,46 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
     <h2 class="section-title reveal">Tudo que você<br><span style="color:var(--cyan)">merece ter</span></h2>
 
     <div class="benefits-grid">
-      <div class="benefit-card reveal">
+      <!-- Benefício 1 -->
+      <div class="benefit-card reveal" onclick="openBenefitModal(this)" data-title="Velocidade Real" data-desc="Fibra óptica 100% — velocidade que chega de verdade ao seu dispositivo. Sem quedas e com estabilidade para você trabalhar, estudar e se divertir sem interrupções.">
         <div class="benefit-icon">🚀</div>
         <div class="benefit-title">Velocidade Real</div>
         <div class="benefit-desc">Fibra óptica 100% — velocidade que chega de verdade ao seu dispositivo</div>
       </div>
-      <div class="benefit-card reveal">
-        <div class="benefit-icon">🔧</div>
-        <div class="benefit-title">Instalação Grátis</div>
-        <div class="benefit-desc">Técnico especializado sem custo de visita nem equipamento</div>
+      
+      <!-- Benefício 2 -->
+      <div class="benefit-card reveal" onclick="openBenefitModal(this)" data-title="Transparência" data-desc="Trabalhamos com condições claras de adesão e fidelidade. Nossos equipamentos são fornecidos em regime de comodato (sem custo de compra), garantindo total transparência para você.">
+        <div class="benefit-icon">🛡️</div>
+        <div class="benefit-title">Transparência</div>
+        <div class="benefit-desc">Condições claras de adesão, fidelidade e equipamentos em comodato.</div>
       </div>
-      <div class="benefit-card reveal">
+
+      <!-- Benefício 3 -->
+      <div class="benefit-card reveal" onclick="openBenefitModal(this)" data-title="Suporte 24h" data-desc="Atendimento humano a qualquer hora, todos os dias. Nossa equipe está sempre pronta para resolver qualquer eventualidade com a sua conexão, sem robôs.">
         <div class="benefit-icon">📞</div>
         <div class="benefit-title">Suporte 24h</div>
         <div class="benefit-desc">Atendimento humano a qualquer hora, todos os dias</div>
       </div>
-      <div class="benefit-card reveal">
-        <div class="benefit-icon">🔓</div>
-        <div class="benefit-title">Sem Fidelidade</div>
-        <div class="benefit-desc">Sem contrato longo. Liberdade total para você</div>
-      </div>
-      <div class="benefit-card reveal">
+
+      <!-- Benefício 4 -->
+      <div class="benefit-card reveal" onclick="openBenefitModal(this)" data-title="Wi-Fi Incluso" data-desc="Esqueça a compra de equipamentos. Fornecemos um roteador Wi-Fi 6 de alta performance sem custo extra (em comodato), ideal para cobrir toda a sua casa.">
         <div class="benefit-icon">📶</div>
         <div class="benefit-title">Wi-Fi Incluso</div>
         <div class="benefit-desc">Roteador Wi-Fi 6 de alta performance sem custo extra</div>
       </div>
-      <div class="benefit-card reveal">
+
+      <!-- Benefício 5 -->
+      <div class="benefit-card reveal" onclick="openBenefitModal(this)" data-title="IPv6 Nativo" data-desc="Tecnologia de ponta. O IPv6 Nativo garante máxima compatibilidade, segurança e velocidade para todos os seus dispositivos conectados simultaneamente.">
         <div class="benefit-icon">⚡</div>
         <div class="benefit-title">IPv6 Nativo</div>
         <div class="benefit-desc">Tecnologia moderna para máxima compatibilidade e velocidade</div>
+      </div>
+
+      <!-- Benefício 6 -->
+      <div class="benefit-card reveal" onclick="openBenefitModal(this)" data-title="Streaming Incluso" data-desc="Assista aos seus filmes e séries favoritos sem pagar a mais por isso. Dependendo do plano escolhido, você recebe acesso a SKY+, Disney+, HBO Max, Globoplay, entre outros.">
+        <div class="benefit-icon">🎬</div>
+        <div class="benefit-title">Streaming Incluso</div>
+        <div class="benefit-desc">SKY+, Disney+, HBO Max e mais, dependendo do plano escolhido.</div>
       </div>
     </div>
   </section>
@@ -490,15 +627,40 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
     <div class="section-label reveal">Escolha o seu</div>
     <h2 class="section-title reveal">Planos que<br><span style="color:var(--gold)">cabem no bolso</span></h2>
 
-    <!-- Plano 300MB -->
+    <div class="planos-notice reveal">
+      <strong>⚠️ Importante sobre a Instalação e Fidelidade:</strong><br>
+      Após a análise cadastral, será liberada uma das duas condições:<br>
+      <strong>1)</strong> Isenção da taxa de adesão (R$ 0,00) com fidelidade de 12 meses.<br>
+      <strong>2)</strong> Taxa de adesão de R$ 500,00 sem multa por cancelamento antecipado.
+    </div>
+
+    <!-- Plano 300MB LIVRO -->
     <div class="plan-card reveal">
       <div class="plan-speed">300<span>MB</span></div>
-      <div class="plan-name">Plano Essencial · Fibra Óptica</div>
+      <div class="plan-name">Plano Livro · Fibra Óptica</div>
       <ul class="plan-features">
         <li>Upload e Download simétrico</li>
-        <li>Roteador Wi-Fi incluso</li>
-        <li>Instalação gratuita</li>
-        <li>Suporte 24 horas</li>
+        <li>Roteador Wi-Fi incluso (Comodato)</li>
+        <li>Levelivros e Ubook</li>
+        <li>Sem apps de streaming, somente leitor</li>
+      </ul>
+      <div class="plan-price">
+        <span class="from">R$</span>
+        <span class="val">69</span>
+        <span class="cents">,90</span>
+        <span class="mo">/mês</span>
+      </div>
+    </div>
+
+    <!-- Plano 500MB STANDARD -->
+    <div class="plan-card reveal">
+      <div class="plan-speed">500<span>MB</span></div>
+      <div class="plan-name">Plano Standard · Fibra Óptica</div>
+      <ul class="plan-features">
+        <li>Upload e Download simétrico</li>
+        <li>Roteador Wi-Fi incluso (Comodato)</li>
+        <li>SKY+, Deezer, PlayKids+</li>
+        <li>Kaspersky, Ubook e mais!</li>
       </ul>
       <div class="plan-price">
         <span class="from">R$</span>
@@ -508,17 +670,34 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
       </div>
     </div>
 
-    <!-- Plano 500MB (destaque) -->
-    <div class="plan-card destaque reveal">
-      <div class="plan-badge">MAIS POPULAR</div>
-      <div class="plan-speed">500<span>MB</span></div>
-      <div class="plan-name">Plano Plus · Fibra Óptica</div>
+    <!-- Plano 600MB ADVANCED -->
+    <div class="plan-card reveal">
+      <div class="plan-speed">600<span>MB</span></div>
+      <div class="plan-name">Plano Advanced · Fibra Óptica</div>
       <ul class="plan-features">
         <li>Upload e Download simétrico</li>
-        <li>Roteador Wi-Fi incluso</li>
-        <li>Instalação gratuita</li>
-        <li>Suporte 24 horas</li>
-        <li>Disney+ ou Globoplay 🎬</li>
+        <li>Roteador Wi-Fi incluso (Comodato)</li>
+        <li>SKY+, HotGo+, Curtalon</li>
+        <li>Kaspersky, O Jornalista, Docway</li>
+      </ul>
+      <div class="plan-price">
+        <span class="from">R$</span>
+        <span class="val">89</span>
+        <span class="cents">,90</span>
+        <span class="mo">/mês</span>
+      </div>
+    </div>
+
+    <!-- Plano 800MB TOP -->
+    <div class="plan-card reveal">
+      <div class="plan-speed">800<span>MB</span></div>
+      <div class="plan-name">Plano Top · Fibra Óptica</div>
+      <ul class="plan-features">
+        <li>Upload e Download simétrico</li>
+        <li>Roteador Wi-Fi incluso (Comodato)</li>
+        <li>SKY+, Amazon Prime, HBO Max</li>
+        <li>Disney+, Globoplay, Apple TV</li>
+        <li>Cindie e Leitura360</li>
       </ul>
       <div class="plan-price">
         <span class="from">R$</span>
@@ -528,35 +707,15 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
       </div>
     </div>
 
-    <!-- Plano 700MB -->
+    <!-- Plano 900MB PREMIUM -->
     <div class="plan-card reveal">
-      <div class="plan-speed">700<span>MB</span></div>
-      <div class="plan-name">Plano Avançado · Fibra Óptica</div>
-      <ul class="plan-features">
-        <li>Upload e Download simétrico</li>
-        <li>Roteador Wi-Fi incluso</li>
-        <li>Instalação gratuita</li>
-        <li>Suporte 24 horas</li>
-        <li>Disney+ ou Max 🎬</li>
-      </ul>
-      <div class="plan-price">
-        <span class="from">R$</span>
-        <span class="val">109</span>
-        <span class="cents">,90</span>
-        <span class="mo">/mês</span>
-      </div>
-    </div>
-
-    <!-- Plano 800MB -->
-    <div class="plan-card reveal">
-      <div class="plan-speed">800<span>MB</span></div>
+      <div class="plan-speed">900<span>MB</span></div>
       <div class="plan-name">Plano Premium · Fibra Óptica</div>
       <ul class="plan-features">
         <li>Upload e Download simétrico</li>
-        <li>Roteador Wi-Fi incluso</li>
-        <li>Instalação gratuita</li>
-        <li>Suporte 24 horas</li>
-        <li>Disney+ ou Max 🎬</li>
+        <li>Roteador Wi-Fi incluso (Comodato)</li>
+        <li>HBO Max, Disney+, Globoplay Premium</li>
+        <li>Kaspersky, Queima Diária, Zen</li>
       </ul>
       <div class="plan-price">
         <span class="from">R$</span>
@@ -566,23 +725,104 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
       </div>
     </div>
 
-    <!-- Plano 1000MB -->
-    <div class="plan-card reveal">
-      <div class="plan-speed">1000<span>MB</span></div>
-      <div class="plan-name">Plano Ultra · Fibra Óptica</div>
+    <!-- Plano 1G ULTRA (DESTAQUE) -->
+    <div class="plan-card destaque reveal">
+      <div class="plan-badge">MELHOR OFERTA</div>
+      <div class="plan-speed">1<span>Giga</span></div>
+      <div class="plan-name">Plano 1G · Internet + Leitor</div>
       <ul class="plan-features">
-        <li>Upload e Download simétrico</li>
-        <li>Roteador Wi-Fi incluso</li>
-        <li>Instalação gratuita</li>
-        <li>Suporte 24 horas</li>
-        <li>Disney+ + Max + Globoplay 🎬</li>
+        <li>1 Gbps de Velocidade</li>
+        <li>Roteador Wi-Fi incluso (Comodato)</li>
+        <li>Livros inclusos (Levelivros e Ubook)</li>
+        <li>Tudo em um só plano</li>
       </ul>
       <div class="plan-price">
         <span class="from">R$</span>
-        <span class="val">149</span>
+        <span class="val">99</span>
         <span class="cents">,90</span>
         <span class="mo">/mês</span>
       </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PRÓXIMOS PASSOS (PRÉ-CONTRATAÇÃO) -->
+  <section>
+    <div class="section-label reveal">Como funciona a contratação</div>
+    <h2 class="section-title reveal">Próximos<br><span style="color:var(--cyan)">Passos</span></h2>
+
+    <div class="steps-grid">
+      <div class="step-card reveal">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h4>Validação de Identidade</h4>
+          <p>Você receberá um link oficial. Será necessário que o titular realize uma selfie segurando o documento (RG ou CNH) com as mãos.</p>
+        </div>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h4>Assinatura Digital</h4>
+          <p>Enviamos o contrato por link. Tenha o documento em mãos para conferir os dados, anexar arquivos e assinar digitalmente.</p>
+        </div>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h4>Liberação e Instalação</h4>
+          <p>Após a assinatura, nossa equipe técnica entrará em contato para agendar a instalação e ativar sua internet.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- GUIA DO NOVO CLIENTE (PÓS-CONTRATAÇÃO) -->
+  <section>
+    <div class="section-label reveal">Seja bem-vindo(a)!</div>
+    <h2 class="section-title reveal">Guia do<br><span style="color:var(--gold)">Novo Cliente</span></h2>
+
+    <div class="steps-grid">
+      <!-- Agendamento -->
+      <div class="step-card reveal" style="border-left: 3px solid var(--cyan);">
+        <div class="step-num" style="background: var(--cyan); color: var(--navy);">📅</div>
+        <div class="step-content">
+          <h4>Confirmação do Agendamento</h4>
+          <p>Fique atento ao contato da nossa equipe para confirmar a <strong>data e o período</strong> da instalação. Organize-se para receber o técnico.</p>
+        </div>
+      </div>
+
+      <!-- Boleto -->
+      <div class="step-card reveal" style="border-left: 3px solid var(--gold);">
+        <div class="step-num" style="background: var(--gold); color: var(--navy);">💳</div>
+        <div class="step-content">
+          <h4>Primeiro Boleto (Pro Rata)</h4>
+          <p>O primeiro boleto é calculado proporcional aos dias de uso. Consulte o valor e o vencimento diretamente no aplicativo oficial da Silvernet.</p>
+        </div>
+      </div>
+
+      <!-- Aplicativo -->
+      <div class="step-card reveal" style="border-left: 3px solid var(--magenta);">
+        <div class="step-num" style="background: var(--magenta); color: var(--white);">📲</div>
+        <div class="step-content">
+          <h4>Baixe o App SILVERNET CLIENTE</h4>
+          <p>Gerencie sua conexão, emita boletos e altere a senha do Wi-Fi.<br>
+          <strong>Login:</strong> CPF do titular<br>
+          <strong>Senha inicial:</strong> 4 primeiros dígitos do CPF</p>
+          
+          <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;">
+            <a href="https://play.google.com/store/apps/details?id=net.silvernet.appcliente&pcampaignid=web_share" target="_blank" class="app-btn">📱 Google Play</a>
+            <a href="https://apps.apple.com/br/app/silvernet-cliente/id6780628593" target="_blank" class="app-btn">🍎 App Store</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="planos-notice reveal" style="margin-top: 24px; text-align: center; border-color: var(--cyan); background: rgba(0,212,255,0.05);">
+      <strong style="color: var(--cyan); font-size: 16px;">Parabéns pela sua contratação! 🎉</strong><br>
+      Agradecemos por escolher a Silvernet Tecnologia para fazer parte do seu dia a dia. Nossa equipe estará à disposição para oferecer o suporte necessário e proporcionar uma excelente experiência com sua internet.
     </div>
   </section>
 
@@ -634,7 +874,7 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
   <section class="cta-final">
     <h2 class="reveal">Pronto para ter<br><span style="color:var(--cyan)">internet de verdade?</span></h2>
     <p class="reveal">Fale agora com nossa vendedora e garanta sua oferta exclusiva de indicação antes que acabe.</p>
-    <a href="https://api.whatsapp.com/send?phone=5511962182268&text=Ol%C3%A1%2C%20vim%20por%20indica%C3%A7%C3%A3o%20e%20quero%20informa%C3%A7%C3%B5es%20sobre%20os%20planos" class="btn-wpp reveal" target="_blank" style="max-width:360px; margin:0 auto;">
+    <a href="https://api.whatsapp.com/send?phone=5511946995101&text=Ol%C3%A1%2C%20vim%20por%20indica%C3%A7%C3%A3o%20e%20quero%20informa%C3%A7%C3%B5es%20sobre%20os%20planos" class="btn-wpp reveal" target="_blank" style="max-width:360px; margin:0 auto;">
       <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Falar com a Vendedora agora
     </a>
@@ -647,15 +887,14 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
     <div class="form-header">
       <div class="form-badge">📋 Cadastro do Cliente</div>
       <h2>Preencha seus<br><span style="color:var(--cyan)">dados</span></h2>
-      <p>Após preencher, clique em enviar e todas as informações serão enviadas<br>diretamente para nosso WhatsApp</p>
+      <p>Após preencher, clique em enviar e todas as informações serão enviadas<br>diretamente para nosso WhatsApp.</p>
     </div>
 
     <div class="docs-notice reveal">
       <p>Envie junto ao formulário os seguintes documentos:</p>
       <p>
         📸 1 selfie do contratante junto ao seu documento<br>
-        🪪 1 foto do documento (frente e verso)<br>
-        🏠 1 foto de comprovante de endereço no nome do contratante
+        🪪 1 foto do documento (frente e verso)
       </p>
     </div>
 
@@ -688,19 +927,27 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
 
     <!-- ENDEREÇO -->
     <div class="form-card reveal">
-      <div class="form-card-title">🏠 Endereço</div>
+      <div class="form-card-title">🏠 Endereço Completo</div>
       <div class="form-grid">
         <div class="form-group full">
-          <label>Endereço Completo</label>
-          <input type="text" id="f-end" placeholder="Rua, número, bairro, cidade">
+          <label>Rua / Logradouro</label>
+          <input type="text" id="f-end" placeholder="Ex: Av. Paulista, Jardim...">
         </div>
         <div class="form-group">
-          <label>Ponto de Referência</label>
-          <input type="text" id="f-ref" placeholder="Ex: próximo ao mercado...">
+          <label>Número</label>
+          <input type="text" id="f-numero" placeholder="Ex: 123">
         </div>
         <div class="form-group">
           <label>CEP</label>
           <input type="text" id="f-cep" placeholder="00000-000" maxlength="9">
+        </div>
+        <div class="form-group">
+          <label>Complemento</label>
+          <input type="text" id="f-comp" placeholder="Casa, apto, bloco...">
+        </div>
+        <div class="form-group">
+          <label>Ponto de Referência</label>
+          <input type="text" id="f-ref" placeholder="Ex: próximo ao mercado...">
         </div>
       </div>
     </div>
@@ -724,11 +971,12 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
     <div class="form-card reveal">
       <div class="form-card-title">⚡ Plano Escolhido</div>
       <div class="plan-select-grid" id="planSelect">
-        <button class="plan-sel-btn" onclick="selPlano(this,'300MB - R$ 79,90/mês')"><span class="speed">300MB</span><span class="price">R$ 79,90</span></button>
-        <button class="plan-sel-btn" onclick="selPlano(this,'500MB - R$ 99,90/mês')"><span class="speed">500MB</span><span class="price">R$ 99,90</span></button>
-        <button class="plan-sel-btn" onclick="selPlano(this,'700MB - R$ 109,90/mês')"><span class="speed">700MB</span><span class="price">R$ 109,90</span></button>
-        <button class="plan-sel-btn" onclick="selPlano(this,'800MB - R$ 119,90/mês')"><span class="speed">800MB</span><span class="price">R$ 119,90</span></button>
-        <button class="plan-sel-btn" onclick="selPlano(this,'1000MB - R$ 149,90/mês')"><span class="speed">1000MB</span><span class="price">R$ 149,90</span></button>
+        <button class="plan-sel-btn" onclick="selPlano(this,'300MB (Livro) - R$ 69,90/mês')"><span class="speed">300MB</span><span class="price">R$ 69,90</span></button>
+        <button class="plan-sel-btn" onclick="selPlano(this,'500MB (Standard) - R$ 79,90/mês')"><span class="speed">500MB</span><span class="price">R$ 79,90</span></button>
+        <button class="plan-sel-btn" onclick="selPlano(this,'600MB (Advanced) - R$ 89,90/mês')"><span class="speed">600MB</span><span class="price">R$ 89,90</span></button>
+        <button class="plan-sel-btn" onclick="selPlano(this,'800MB (Top) - R$ 99,90/mês')"><span class="speed">800MB</span><span class="price">R$ 99,90</span></button>
+        <button class="plan-sel-btn" onclick="selPlano(this,'900MB (Premium) - R$ 119,90/mês')"><span class="speed">900MB</span><span class="price">R$ 119,90</span></button>
+        <button class="plan-sel-btn" onclick="selPlano(this,'1G (Internet + Leitor) - R$ 99,90/mês')"><span class="speed">1 Giga</span><span class="price">R$ 99,90</span></button>
       </div>
       <input type="hidden" id="f-plano" value="">
     </div>
@@ -736,10 +984,9 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
     <!-- VENCIMENTO -->
     <div class="form-card reveal">
       <div class="form-card-title">📅 Data de Vencimento</div>
-      <p style="font-size:12px;color:var(--muted);margin-bottom:14px">Temos as seguintes opções de vencimento:</p>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:14px">Qual o melhor dia para organizar o pagamento da sua mensalidade?</p>
       <div class="venc-grid" id="vencSelect">
         <button class="venc-btn" onclick="selVenc(this,'01')">Dia 01</button>
-        <button class="venc-btn" onclick="selVenc(this,'05')">Dia 05</button>
         <button class="venc-btn" onclick="selVenc(this,'10')">Dia 10</button>
         <button class="venc-btn" onclick="selVenc(this,'15')">Dia 15</button>
         <button class="venc-btn" onclick="selVenc(this,'20')">Dia 20</button>
@@ -747,10 +994,11 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
       <input type="hidden" id="f-venc" value="">
     </div>
 
-    <!-- COMO CONHECEU -->
+    <!-- COMO CONHECEU E ACEITE -->
     <div class="form-card reveal">
-      <div class="form-card-title">💬 Mais Informações</div>
-      <div class="form-group full">
+      <div class="form-card-title">💬 Termos e Autorizações</div>
+      
+      <div class="form-group full" style="margin-bottom: 16px;">
         <label>Como Conheceu a SilverNet?</label>
         <select id="f-origem">
           <option value="">Selecione...</option>
@@ -762,33 +1010,40 @@ section { padding: 60px 20px; max-width: 480px; margin: 0 auto; }
           <option>Outro</option>
         </select>
       </div>
+
+      <label class="accept-box">
+        <input type="checkbox" id="f-aceite">
+        <span>
+          <strong>Li e concordo com os termos do processo.</strong> Estou ciente de que a contratação possui fidelidade de 12 meses (com taxa de adesão R$ 0) ou sem fidelidade (com taxa de R$ 500), conforme análise. Autorizo a validação de identidade via selfie e assinatura digital do contrato.
+        </span>
+      </label>
     </div>
 
     <!-- BOTÃO ENVIAR -->
     <button class="btn-submit reveal" onclick="enviarWhatsApp()">
       <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Enviar Dados pelo WhatsApp
+      Enviar Dados para Cadastro
     </button>
-    <p class="form-notice">Ao clicar, você será direcionado ao WhatsApp com todas as informações já preenchidas.<br>Lembre-se de anexar os documentos solicitados na conversa.</p>
+    <p class="form-notice">Ao clicar, você será direcionado ao WhatsApp com todas as informações.<br>Lembre-se de anexar os documentos solicitados na conversa.</p>
   </section>
 
   <!-- FOOTER -->
   <footer class="footer">
-    <p><strong>SilverNet Tecnologia</strong> · Internet Fibra Óptica · Todos os direitos reservados</p>
+    <p><strong>SilverNet Tecnologia</strong> · Internet Fibra Óptica · Mais de 10 anos de mercado</p>
   </footer>
 
 </div><!-- /page -->
 
 <!-- BOTÃO FIXO NO RODAPÉ -->
 <div class="sticky-bar">
-  <a href="https://api.whatsapp.com/send?phone=5511962182268&text=Ol%C3%A1%2C%20vim%20por%20indica%C3%A7%C3%A3o%20e%20quero%20informa%C3%A7%C3%B5es%20sobre%20os%20planos" target="_blank">
+  <a href="https://api.whatsapp.com/send?phone=5511946995101&text=Ol%C3%A1%2C%20vim%20por%20indica%C3%A7%C3%A3o%20e%20quero%20verificar%20a%20disponibilidade%20no%20meu%20endere%C3%A7o" target="_blank">
     <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     💬 Falar com Vendedora — WhatsApp
   </a>
 </div>
 
 <script>
-const TELEFONE = '5511962182268';
+const TELEFONE = '5511946995101';
 
 /* FIBRAS ANIMADAS */
 const bg = document.getElementById('bgCanvas');
@@ -826,6 +1081,24 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 reveals.forEach(el => observer.observe(el));
 
+/* MODAL DE BENEFÍCIOS (NUVEM) */
+function openBenefitModal(card) {
+  const title = card.getAttribute('data-title');
+  const desc = card.getAttribute('data-desc');
+  const icon = card.querySelector('.benefit-icon').innerHTML;
+
+  document.getElementById('modal-icon').innerHTML = icon;
+  document.getElementById('modal-title').innerText = title;
+  document.getElementById('modal-desc').innerText = desc;
+
+  document.getElementById('benefitModal').classList.add('active');
+}
+
+function closeBenefitModal(e) {
+  if (e && e.target.id !== 'benefitModal' && !e.target.classList.contains('modal-close')) return;
+  document.getElementById('benefitModal').classList.remove('active');
+}
+
 /* MÁSCARA CPF */
 document.getElementById('f-cpf').addEventListener('input', function() {
   let v = this.value.replace(/\D/g,'').substring(0,11);
@@ -862,6 +1135,8 @@ function enviarWhatsApp() {
   const nasc   = document.getElementById('f-nasc').value;
   const email  = document.getElementById('f-email').value.trim();
   const end    = document.getElementById('f-end').value.trim();
+  const numero = document.getElementById('f-numero').value.trim();
+  const comp   = document.getElementById('f-comp').value.trim();
   const ref    = document.getElementById('f-ref').value.trim();
   const cep    = document.getElementById('f-cep').value.trim();
   const tel1   = document.getElementById('f-tel1').value.trim();
@@ -869,13 +1144,16 @@ function enviarWhatsApp() {
   const plano  = document.getElementById('f-plano').value;
   const venc   = document.getElementById('f-venc').value;
   const origem = document.getElementById('f-origem').value;
+  const aceite = document.getElementById('f-aceite').checked;
 
   if (!nome) { alert('Por favor, preencha o Nome Completo.'); return; }
   if (!cpf)  { alert('Por favor, preencha o CPF.'); return; }
   if (!end)  { alert('Por favor, preencha o Endereço.'); return; }
+  if (!numero){ alert('Por favor, preencha o Número do endereço.'); return; }
   if (!tel1) { alert('Por favor, preencha pelo menos um telefone.'); return; }
   if (!plano){ alert('Por favor, selecione o Plano desejado.'); return; }
   if (!venc) { alert('Por favor, selecione a Data de Vencimento.'); return; }
+  if (!aceite) { alert('Você precisa autorizar os termos e a análise cadastral para continuar.'); return; }
 
   let nascFmt = nasc;
   if (nasc) {
@@ -884,18 +1162,20 @@ function enviarWhatsApp() {
   }
 
   const msg = `
-📋 *CADASTRO DE NOVO CLIENTE — SILVERNET*
+📋 *CADASTRO DE CLIENTE — SILVERNET*
 ━━━━━━━━━━━━━━━━━━━━━━━
 
-👤 *DADOS PESSOAIS*
+👤 *DADOS DO TITULAR*
 • Nome: ${nome}
 • CPF: ${cpf}
 • RG: ${rg || 'Não informado'}
 • Nascimento: ${nascFmt || 'Não informado'}
 • E-mail: ${email || 'Não informado'}
 
-🏠 *ENDEREÇO*
-• Endereço: ${end}
+🏠 *ENDEREÇO COMPLETO*
+• Logradouro: ${end}
+• Número: ${numero}
+• Complemento: ${comp || 'Não informado'}
 • Referência: ${ref || 'Não informado'}
 • CEP: ${cep || 'Não informado'}
 
@@ -912,11 +1192,15 @@ function enviarWhatsApp() {
 💬 *COMO CONHECEU*
 • ${origem || 'Não informado'}
 
+✅ *CIENTE E DE ACORDO:*
+• Autorizo a análise cadastral e validação de identidade (selfie).
+• Ciente das condições de fidelidade (12 meses sem taxa) ou taxa de R$ 500 (sem fidelidade).
+• Ciente de que receberei o link de assinatura digital do contrato.
+
 ━━━━━━━━━━━━━━━━━━━━━━━
 📎 *DOCUMENTOS — enviar nesta conversa:*
 • 1 selfie com documento
 • Documento frente e verso
-• Comprovante de endereço
 `.trim();
 
   const url = `https://api.whatsapp.com/send?phone=${TELEFONE}&text=${encodeURIComponent(msg)}`;
